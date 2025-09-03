@@ -127,7 +127,7 @@ export namespace exampleFunction2 {
 }
 
         
-export namespace ping2f {
+export namespace ping {
     
     export class Input {
         /**
@@ -141,10 +141,10 @@ export namespace ping2f {
 
         static fromTyped({        
         }: {        
-        }): ping2f.Input {
+        }): ping.Input {
             const input: Record<string, any> = {};
 
-            return new ping2f.Input({"fn.ping2f": input});
+            return new ping.Input({"fn.ping": input});
         }
     }
     
@@ -157,17 +157,17 @@ export namespace ping2f {
         constructor(pseudoJson: Record<string, any>) {
             this.pseudoJson = pseudoJson;
         }
-        static from_Ok_(payload: ping2f.Output.Ok_): ping2f.Output {
-            return new ping2f.Output({
+        static from_Ok_(payload: ping.Output.Ok_): ping.Output {
+            return new ping.Output({
                 "Ok_": payload.pseudoJson
             });
         }
 
         getTaggedValue():
-            TaggedValue_<"Ok_", ping2f.Output.Ok_> | UntypedTaggedValue_ {
+            TaggedValue_<"Ok_", ping.Output.Ok_> | UntypedTaggedValue_ {
             const tag = Object.keys(this.pseudoJson)[0]!;
             if (tag === "Ok_") {
-                return new TaggedValue_("Ok_", new ping2f.Output.Ok_(this.pseudoJson["Ok_"]));
+                return new TaggedValue_("Ok_", new ping.Output.Ok_(this.pseudoJson["Ok_"]));
             }
             return new UntypedTaggedValue_(tag, this.pseudoJson[tag]);
         }
@@ -185,10 +185,10 @@ export namespace ping2f {
 
             static fromTyped({        
             }: {        
-            }): ping2f.Output.Ok_ {
+            }): ping.Output.Ok_ {
                 const input: Record<string, any> = {};
 
-                return new ping2f.Output.Ok_(input);
+                return new ping.Output.Ok_(input);
             }
         }
     }
@@ -207,7 +207,7 @@ export class Select_ {
 
     constructor(pseudoJson: Record<string, any>) {
         this.pseudoJson = pseudoJson;
-    }static for_ping2f(select: ping2f.Select_): Select_ {
+    }static for_ping(select: ping.Select_): Select_ {
         return new Select_(select.pseudoJson);
     }static for_exampleFunction2(select: exampleFunction2.Select_): Select_ {
         return new Select_(select.pseudoJson);
@@ -225,9 +225,9 @@ export class ClientInterface_ {
         const message = await this.client.request(new Message(headers, input.pseudoJson));
         return [message.headers, new exampleFunction2.Output(message.body)];
     }
-    async ping2f(headers: Record<string, any>, input: ping2f.Input): Promise<[Record<string, any>, ping2f.Output]> {
+    async ping(headers: Record<string, any>, input: ping.Input): Promise<[Record<string, any>, ping.Output]> {
         const message = await this.client.request(new Message(headers, input.pseudoJson));
-        return [message.headers, new ping2f.Output(message.body)];
+        return [message.headers, new ping.Output(message.body)];
     }
 }
 
@@ -236,7 +236,7 @@ export class ServerHandler_ {
     async exampleFunction2(headers: Record<string, any>, input: exampleFunction2.Input): Promise<[Record<string, any>, exampleFunction2.Output]> {
         throw new Error('Not implemented');
     }
-    async ping2f(headers: Record<string, any>, input: ping2f.Input): Promise<[Record<string, any>, ping2f.Output]> {
+    async ping(headers: Record<string, any>, input: ping.Input): Promise<[Record<string, any>, ping.Output]> {
         throw new Error('Not implemented');
     }
 
@@ -248,8 +248,8 @@ export class ServerHandler_ {
             const [headers, output] = await this.exampleFunction2(message.headers, new exampleFunction2.Input(message.body));
             return new Message(headers, output.pseudoJson);
         }
-        else if (functionName === "fn.ping2f") {
-            const [headers, output] = await this.ping2f(message.headers, new ping2f.Input(message.body));
+        else if (functionName === "fn.ping") {
+            const [headers, output] = await this.ping(message.headers, new ping.Input(message.body));
             return new Message(headers, output.pseudoJson);
         }
 

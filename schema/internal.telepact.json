@@ -1,7 +1,7 @@
 [
     {
         "///": " Ping the server. ",
-        "fn.ping2f": {},
+        "fn.ping": {},
         "->": [
             {
                 "Ok_": {}
