@@ -1,0 +1,26 @@
+[
+    {
+        "///": " Ping the server. ",
+        "fn.ping2": {},
+        "->": [
+            {
+                "Ok_": {}
+            }
+        ]
+    },
+    {
+        "fn.exampleFunction2": {
+            "field": "integer"
+        },
+        "->": [
+            {
+                "Ok_": {}
+            },
+            {
+                "Error": {
+                    "field": "string"
+                }
+            }
+        ]
+    }
+]
