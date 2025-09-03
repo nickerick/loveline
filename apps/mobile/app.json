@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "DateMe",
-    "slug": "dateme",
+    "name": "loveline ♡",
+    "slug": "loveline",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/build/icon.png",
-    "scheme": "dateme",
+    "scheme": "loveline",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nickerick.dateme",
+      "bundleIdentifier": "com.nickerick.loveline",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -31,7 +31,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/build/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
