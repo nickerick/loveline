@@ -242,7 +242,6 @@ export class ServerHandler_ {
 
     async handler(message: Message): Promise<Message> {
         const functionName = Object.keys(message.body)[0];
-
         
         if (functionName === "fn.exampleFunction2") {
             const [headers, output] = await this.exampleFunction2(message.headers, new exampleFunction2.Input(message.body));
