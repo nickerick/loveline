@@ -1,5 +1,7 @@
 import { FeedItem } from '@/src/components/feed/FeedItem';
-import React, { useState } from 'react';
+import { Post } from '@/src/domain/post/Post';
+import { postsService } from '@/src/infrastructure/service';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 
 function generateItems(start: number, count: number, oCount: number = 1) {
@@ -12,8 +14,25 @@ function generateItems(start: number, count: number, oCount: number = 1) {
 export default function Tab() {
   const [data, setData] = useState(generateItems(1, 20));
   const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
+  
+  useEffect(() => {
+    async function fetchPosts() {
+      const result = await postsService.getAllPosts();
+      if (!ignore) {
+        setPosts(result);
+      }
+    }
+
+    let ignore = false;
+    fetchPosts();
+    return () => {
+      ignore = true;
+    }
+  }, []);
 
   const loadMore = () => {
+    console.log('Posts: ', posts);
     if (loading) return;
     setLoading(true);
     setTimeout(() => {
