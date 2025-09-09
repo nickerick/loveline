@@ -4,7 +4,7 @@ import {
     Message,
     Serializer,
 } from "telepact";
-import { ClientInterface_, exampleFunction2 } from "./gen/all_";
+import { ClientInterface_, exampleFunction2, getUsers, GetUsersRequest } from "./gen/all_";
 
 const adapter: (m: Message, s: Serializer) => Promise<Message> = async (m, s) => {
     // Debug
@@ -45,7 +45,9 @@ const client = new Client(adapter, options);
 const genClient = new ClientInterface_(client);
 
 // Make telepact request
-const resp = await genClient.exampleFunction2({}, exampleFunction2.Input.fromTyped({field: 1}));
+// const resp = await genClient.exampleFunction2({}, exampleFunction2.Input.fromTyped({field: 1}));
+
+const resp = await genClient.getUsers({}, getUsers.Input.fromTyped({request: GetUsersRequest.fromTyped({limit: 1})}));
 
 // Debug
 console.log('Telepact Response');
