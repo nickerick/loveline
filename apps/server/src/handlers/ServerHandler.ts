@@ -14,15 +14,6 @@ export class ServerHandler extends ServerHandler_ {
     }
 
     override async getUsers(headers: Record<string, any>, input: getUsers.Input): Promise<[Record<string, any>, getUsers.Output]> {
-        console.log('Routing getUsers to UserHandler');
-
-        const users: User[] = [];
-            // users.push(User.fromTyped({ id: "id-1", username: "default-user", email: "default-email", firstName: "Default", lastName: "User" }));
-        
-            const output = getUsers.Output.from_Ok_(getUsers.Output.Ok_.fromTyped(users));
-            return [{}, output];
-
-        // return this.userHandler.getUsers(headers, input);
-    }
-    
+        return this.userHandler.getUsers(headers, input);
+    }   
 }

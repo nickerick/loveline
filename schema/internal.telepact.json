@@ -25,29 +25,19 @@
     },
     {
         "///": "Get list of users",
-        "fn.getUsers": {
-            "request": "struct.GetUsersRequest"
-        },
+        "fn.getUsers": {},
         "->": [
             {
-                "Ok_": {}
+                "Ok_": {
+                    "users": [
+                        "struct.User"
+                    ]
+                }
             },
             {
-                "Error": {
-                    "field": "string"
-                }
+                "Error": {}
             }
         ]
-    },
-    {
-        "struct.GetUsersRequest": {}
-    },
-    {
-        "struct.GetUsersResponse": {
-            "users": [
-                "struct.User"
-            ]
-        }
     },
     {
         "struct.User": {

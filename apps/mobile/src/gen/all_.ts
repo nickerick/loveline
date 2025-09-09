@@ -139,18 +139,12 @@ export namespace getUsers {
             this.pseudoJson = pseudoJson;
         }
 
-        static fromTyped({
-            request,        
-        }: {
-            request: GetUsersRequest,        
+        static fromTyped({        
+        }: {        
         }): getUsers.Input {
             const input: Record<string, any> = {};
-            input["request"] = ((d0) => d0.pseudoJson)(request);
 
             return new getUsers.Input({"fn.getUsers": input});
-        }
-        request(): GetUsersRequest {
-            return ((d0: any) => new GetUsersRequest(d0))(this.pseudoJson["fn.getUsers"]["request"]);
         }
     }
     
@@ -198,12 +192,18 @@ export namespace getUsers {
                 this.pseudoJson = pseudoJson;
             }
 
-            static fromTyped({        
-            }: {        
+            static fromTyped({
+                users,        
+            }: {
+                users: Array<User>,        
             }): getUsers.Output.Ok_ {
                 const input: Record<string, any> = {};
+                input["users"] = ((d0) => d0.map((e0) => ((d1) => d1.pseudoJson)(e0)))(users);
 
                 return new getUsers.Output.Ok_(input);
+            }
+            users(): Array<User> {
+                return ((d0: Array<User>) => d0.map((e0) => ((d1: any) => new User(d1))(e0)))(this.pseudoJson["users"]);
             }
         }
         
@@ -215,25 +215,78 @@ export namespace getUsers {
                 this.pseudoJson = pseudoJson;
             }
 
-            static fromTyped({
-                field,        
-            }: {
-                field: string,        
+            static fromTyped({        
+            }: {        
             }): getUsers.Output.Error {
                 const input: Record<string, any> = {};
-                input["field"] = field;
 
                 return new getUsers.Output.Error(input);
-            }
-            field(): string {
-                return this.pseudoJson["field"];
             }
         }
     }
 
     export class Select_ {
 
-        pseudoJson: Record<string, any> = {};}
+        pseudoJson: Record<string, any> = {};
+            
+        okusers(): Select_ {
+            const resultUnion = this.pseudoJson["->"] ?? {};
+
+            if (!('Ok_' in resultUnion)) {
+                const theseFields = resultUnion["Ok_"] ?? [];
+                if (!('users' in theseFields)) {
+                    theseFields.push('users');
+                }
+                resultUnion["Ok_"] = theseFields;
+            }
+            this.pseudoJson["->"] = resultUnion;
+            return this;
+        }Useremail(): Select_ {
+            const theseFields = this.pseudoJson["struct.User"] ?? [];
+            if (!('email' in theseFields)) {
+                theseFields.push('email');
+            }
+            this.pseudoJson["struct.User"] = theseFields;
+
+            return this;
+        }
+                UserfirstName(): Select_ {
+            const theseFields = this.pseudoJson["struct.User"] ?? [];
+            if (!('firstName' in theseFields)) {
+                theseFields.push('firstName');
+            }
+            this.pseudoJson["struct.User"] = theseFields;
+
+            return this;
+        }
+                Userid(): Select_ {
+            const theseFields = this.pseudoJson["struct.User"] ?? [];
+            if (!('id' in theseFields)) {
+                theseFields.push('id');
+            }
+            this.pseudoJson["struct.User"] = theseFields;
+
+            return this;
+        }
+                UserlastName(): Select_ {
+            const theseFields = this.pseudoJson["struct.User"] ?? [];
+            if (!('lastName' in theseFields)) {
+                theseFields.push('lastName');
+            }
+            this.pseudoJson["struct.User"] = theseFields;
+
+            return this;
+        }
+                Userusername(): Select_ {
+            const theseFields = this.pseudoJson["struct.User"] ?? [];
+            if (!('username' in theseFields)) {
+                theseFields.push('username');
+            }
+            this.pseudoJson["struct.User"] = theseFields;
+
+            return this;
+        }
+                }
 
 }
 
@@ -311,48 +364,6 @@ export namespace ping {
 }
 
         
-export class GetUsersRequest {
-    
-    pseudoJson: Record<string, any>;
-
-    constructor(pseudoJson: Record<string, any>) {
-        this.pseudoJson = pseudoJson;
-    }
-
-    static fromTyped({        
-    }: {        
-    }): GetUsersRequest {
-        const input: Record<string, any> = {};
-
-        return new GetUsersRequest(input);
-    }
-}
-
-        
-export class GetUsersResponse {
-    
-    pseudoJson: Record<string, any>;
-
-    constructor(pseudoJson: Record<string, any>) {
-        this.pseudoJson = pseudoJson;
-    }
-
-    static fromTyped({
-        users,        
-    }: {
-        users: Array<User>,        
-    }): GetUsersResponse {
-        const input: Record<string, any> = {};
-        input["users"] = ((d0) => d0.map((e0) => ((d1) => d1.pseudoJson)(e0)))(users);
-
-        return new GetUsersResponse(input);
-    }
-    users(): Array<User> {
-        return ((d0: Array<User>) => d0.map((e0) => ((d1: any) => new User(d1))(e0)))(this.pseudoJson["users"]);
-    }
-}
-
-        
 export class User {
     
     pseudoJson: Record<string, any>;
@@ -410,9 +421,9 @@ export class Select_ {
         this.pseudoJson = pseudoJson;
     }static for_ping(select: ping.Select_): Select_ {
         return new Select_(select.pseudoJson);
-    }static for_exampleFunction2(select: exampleFunction2.Select_): Select_ {
-        return new Select_(select.pseudoJson);
     }static for_getUsers(select: getUsers.Select_): Select_ {
+        return new Select_(select.pseudoJson);
+    }static for_exampleFunction2(select: exampleFunction2.Select_): Select_ {
         return new Select_(select.pseudoJson);
     }}
 

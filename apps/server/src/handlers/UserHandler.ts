@@ -8,8 +8,10 @@ export class UserHandler {
 
     const users: User[] = [];
     users.push(User.fromTyped({ id: "id-1", username: "default-user", email: "default-email", firstName: "Default", lastName: "User" }));
+    console.log(users);
 
-    const output = getUsers.Output.from_Ok_(getUsers.Output.Ok_.fromTyped(users));
+    const output = getUsers.Output.from_Ok_(getUsers.Output.Ok_.fromTyped({users: users}));
+    console.log(output);
     return [{}, output];
   }
 

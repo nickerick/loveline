@@ -49,17 +49,26 @@ const genClient = new ClientInterface_(client);
 
 const resp = await genClient.getUsers({}, getUsers.Input.fromTyped({request: GetUsersRequest.fromTyped({limit: 1})}));
 
-// Debug
-console.log('Telepact Response');
-console.log(resp);
-console.log('\n');
-console.log(resp[1].pseudoJson);
-console.log('\n')
-console.log(resp[1].getTaggedValue());
-console.log('\n')
-console.log(resp[1].getTaggedValue().tag);
-console.log('\n')
-console.log(resp[1].getTaggedValue().value);
+if (resp[1].getTaggedValue().tag === "Ok_") {
+    const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
+    console.log('Users:');
+    console.dir(users, { depth: null });
+} else {
+    console.log('Error response:');
+    console.dir(resp[1].getTaggedValue().value, { depth: null });
+}
 
-console.log(resp[1].getTaggedValue().value as Record<string, any>['cases']);
-console.dir(resp[1].getTaggedValue().value, { depth: null });
+// Debug
+// console.log('Telepact Response');
+// console.log(resp);
+// console.log('\n');
+// console.log(resp[1].pseudoJson);
+// console.log('\n')
+// console.log(resp[1].getTaggedValue());
+// console.log('\n')
+// console.log(resp[1].getTaggedValue().tag);
+// console.log('\n')
+// console.log(resp[1].getTaggedValue().value as getUsers.Output.Ok_);
+
+// console.log(resp[1].getTaggedValue().value as Record<string, any>['cases']);
+// console.dir(resp[1].getTaggedValue().value, { depth: null });
