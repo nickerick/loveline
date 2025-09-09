@@ -1,0 +1,41 @@
+# WIP WIP WIP
+services:
+  mariadb:
+    image: mariadb:11.4
+    container_name: loveline-mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - loveline-net
+
+  server:
+    build: .
+    container_name: loveline-server
+    environment:
+      DATABASE_HOST: mariadb
+      DATABASE_PORT: 3306
+      DATABASE_USER: ${MYSQL_USER}
+      DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+      DATABASE_NAME: ${MYSQL_DATABASE}
+    depends_on:
+      - mariadb
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./src:/usr/src/app/src # Mount source code for development
+    networks:
+      - loveline-net
+
+volumes:
+  mariadb-data:
+
+networks:
+  loveline-net:

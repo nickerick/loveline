@@ -39,6 +39,10 @@
     "verbatimModuleSyntax": true,
     // "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+
+
     // "moduleDetection": "force",
     // "skipLibCheck": false,
         // "resolvePackageJsonExports": false

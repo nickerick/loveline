@@ -10,7 +10,7 @@ import * as path from 'path';
 import { ServerHandler } from './handler';
 
 // Telepact server configuration
-const files = new TelepactSchemaFiles('/Users/nicke/Workspace/react-native-playground/server/src/schema', fs, path);
+const files = new TelepactSchemaFiles('src/schema', fs, path);
 const schema = TelepactSchema.fromFileJsonMap(files.filenamesToJson);
 const serverHandler = new ServerHandler();
 const options = new ServerOptions();
@@ -66,6 +66,6 @@ const httpServer = createServer((req, res) => {
   }
 });
 
-httpServer.listen(8081, () => {
-  console.log('Server listening on http://localhost:8081');
+httpServer.listen(8080, () => {
+  console.log('Server listening on http://localhost:8080');
 });
