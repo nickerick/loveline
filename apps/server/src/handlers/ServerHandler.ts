@@ -1,4 +1,4 @@
-import { ServerHandler_, exampleFunction2, getUsers } from '../gen/all_.js';
+import { ServerHandler_, User, exampleFunction2, getUsers } from '../gen/all_.js';
 import { UserHandler } from './UserHandler.js';
 
 /// Implementation of the Telepact ServerHandler_
@@ -15,7 +15,14 @@ export class ServerHandler extends ServerHandler_ {
 
     override async getUsers(headers: Record<string, any>, input: getUsers.Input): Promise<[Record<string, any>, getUsers.Output]> {
         console.log('Routing getUsers to UserHandler');
-        return this.userHandler.getUsers(headers, input);
+
+        const users: User[] = [];
+            // users.push(User.fromTyped({ id: "id-1", username: "default-user", email: "default-email", firstName: "Default", lastName: "User" }));
+        
+            const output = getUsers.Output.from_Ok_(getUsers.Output.Ok_.fromTyped(users));
+            return [{}, output];
+
+        // return this.userHandler.getUsers(headers, input);
     }
     
 }

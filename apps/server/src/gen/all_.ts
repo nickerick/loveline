@@ -410,9 +410,9 @@ export class Select_ {
         this.pseudoJson = pseudoJson;
     }static for_ping(select: ping.Select_): Select_ {
         return new Select_(select.pseudoJson);
-    }static for_exampleFunction2(select: exampleFunction2.Select_): Select_ {
-        return new Select_(select.pseudoJson);
     }static for_getUsers(select: getUsers.Select_): Select_ {
+        return new Select_(select.pseudoJson);
+    }static for_exampleFunction2(select: exampleFunction2.Select_): Select_ {
         return new Select_(select.pseudoJson);
     }}
 

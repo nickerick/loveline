@@ -60,3 +60,6 @@ console.log('\n')
 console.log(resp[1].getTaggedValue().tag);
 console.log('\n')
 console.log(resp[1].getTaggedValue().value);
+
+console.log(resp[1].getTaggedValue().value as Record<string, any>['cases']);
+console.dir(resp[1].getTaggedValue().value, { depth: null });
