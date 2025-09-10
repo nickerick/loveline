@@ -1,15 +1,20 @@
-import { Colors } from '@/src/constants/Colors';
-import { View, StyleSheet, Text } from 'react-native';
+import { Colors } from "@/src/constants/Colors";
+import { View, StyleSheet, Text } from "react-native";
 
 type FeedItemProps = {
   text: string;
 };
 
-export function FeedItem({text}: FeedItemProps) {
+export function FeedItem({ text }: FeedItemProps) {
   const bgColor = getRandomColor();
-  
+
   return (
-    <View style={[styles.container, {backgroundColor: bgColor, borderColor: bgColor}]}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: bgColor, borderColor: bgColor },
+      ]}
+    >
       <Text>{text}</Text>
     </View>
   );

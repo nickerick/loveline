@@ -2,7 +2,7 @@ import {
   Server,
   ServerOptions,
   TelepactSchema,
-  TelepactSchemaFiles
+  TelepactSchemaFiles,
 } from "telepact";
 import * as fs from "fs";
 import * as path from "path";
