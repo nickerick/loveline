@@ -4,7 +4,7 @@ generate:
 
 # Start development environment
 start-dev:
-	docker-compose --env-file .env.local -f docker-compose.dev.yaml up -d
+	docker-compose --env-file .env.local -f docker-compose.dev.yaml up
 
 # Stop development environment
 stop-dev:

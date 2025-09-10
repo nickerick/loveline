@@ -1,11 +1,12 @@
 import { ServerHandler_, User, exampleFunction2, getUsers } from '../gen/all_.js';
+import { userRepository } from '../infrastructure/repository.js';
 import { UserHandler } from './UserHandler.js';
 
 /// Implementation of the Telepact ServerHandler_
 ///
 /// This default handler routes interface methods to their specific domain handlers
 export class ServerHandler extends ServerHandler_ {
-    private userHandler = new UserHandler();
+    private userHandler = new UserHandler(userRepository);
 
     override async exampleFunction2(headers: Record<string, any>, input: exampleFunction2.Input): Promise<[Record<string, any>, exampleFunction2.Output]> {
 
