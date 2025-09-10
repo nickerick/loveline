@@ -1,3 +1,3 @@
-codegen:
-	$(MAKE) -C apps/server codegen
-	$(MAKE) -C apps/mobile codegen
+generate:
+	$(MAKE) -C apps/server generate
+	$(MAKE) -C apps/mobile generate

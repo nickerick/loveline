@@ -22,5 +22,30 @@
                 }
             }
         ]
+    },
+    {
+        "///": "Get list of users",
+        "fn.getUsers": {},
+        "->": [
+            {
+                "Ok_": {
+                    "users": [
+                        "struct.User"
+                    ]
+                }
+            },
+            {
+                "Error": {}
+            }
+        ]
+    },
+    {
+        "struct.User": {
+            "id": "string",
+            "email": "string",
+            "username": "string",
+            "firstName": "string",
+            "lastName": "string"
+        }
     }
 ]
