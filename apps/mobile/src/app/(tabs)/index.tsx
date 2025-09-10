@@ -1,39 +1,38 @@
 import { FeedItem } from '@/src/components/feed/FeedItem';
-import React, { useState } from 'react';
+import { User } from '@/src/domain/post/User';
+import { userService } from '@/src/infrastructure/service';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 
-function generateItems(start: number, count: number, oCount: number = 1) {
-  return Array.from({ length: count }, (_, i) => ({
-    id: (start + i).toString(),
-    text: `I l${'o'.repeat(start + i)}ve you`,
-  }));
-}
-
 export default function Tab() {
-  const [data, setData] = useState(generateItems(1, 20));
-  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState<User[]>([]);
+  
+  useEffect(() => {
+    async function fetchUsers() {
+      const result = await userService.getAllUsers();
+      if (!ignore) {
+        setUsers(result);
+      }
+    }
 
-  const loadMore = () => {
-    if (loading) return;
-    setLoading(true);
-    setTimeout(() => {
-      const next = generateItems(data.length + 1, 20);
-      setData([...data, ...next]);
-      setLoading(false);
-    }, 200); // Simulate network delay
-  };
+    let ignore = false;
+    fetchUsers();
+    return () => {
+      ignore = true;
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
+        data={users}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
-            <FeedItem text={item.text} />
+            <FeedItem text={item.username} />
         )}
-        onEndReached={loadMore}
+        // onEndReached={loadMore}
         onEndReachedThreshold={0.5}
-        ListFooterComponent={loading ? <ActivityIndicator /> : null}
+        // ListFooterComponent={loading ? <ActivityIndicator /> : null}
       />
     </View>
   );

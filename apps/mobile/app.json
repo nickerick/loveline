@@ -44,8 +44,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "80a85bf8-2b57-49bc-bd91-ba415c98e967"
+        "projectId": "53cd5bcf-3df9-41ff-8c1c-73dd111997ba"
       }
-    }
+    },
+    "owner": "nickerick"
   }
 }
