@@ -17,7 +17,9 @@
   "dependencies": {
     "fastify": "^5.5.0",
     "fastify-raw-body": "^5.0.0",
-    "telepact": "file:/Users/nicke/Workspace/telepact/lib/ts/dist-tgz/telepact-1.0.0-alpha.105.tgz"
+    "kysely": "^0.28.5",
+    "mysql2": "3.14.4", 
+    "telepact": "file:./telepact-1.0.0-alpha.105.tgz"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",

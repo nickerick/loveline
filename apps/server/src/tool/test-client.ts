@@ -4,7 +4,7 @@ import {
     Message,
     Serializer,
 } from "telepact";
-import { ClientInterface_, exampleFunction2 } from "../gen/all_";
+import { ClientInterface_, exampleFunction2, getUsers } from "./gen/all_";
 
 const adapter: (m: Message, s: Serializer) => Promise<Message> = async (m, s) => {
     // Debug
@@ -45,16 +45,30 @@ const client = new Client(adapter, options);
 const genClient = new ClientInterface_(client);
 
 // Make telepact request
-const resp = await genClient.exampleFunction2({}, exampleFunction2.Input.fromTyped({field: 3}));
+// const resp = await genClient.exampleFunction2({}, exampleFunction2.Input.fromTyped({field: 1}));
+
+const resp = await genClient.getUsers({}, getUsers.Input.fromTyped({}));
+
+if (resp[1].getTaggedValue().tag === "Ok_") {
+    const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
+    console.log('Users:');
+    console.dir(users, { depth: null });
+} else {
+    console.log('Error response:');
+    console.dir(resp[1].getTaggedValue().value, { depth: null });
+}
 
 // Debug
-console.log('Telepact Response');
-console.log(resp);
-console.log('\n');
-console.log(resp[1].pseudoJson);
-console.log('\n')
-console.log(resp[1].getTaggedValue());
-console.log('\n')
-console.log(resp[1].getTaggedValue().tag);
-console.log('\n')
-console.log(resp[1].getTaggedValue().value);
+// console.log('Telepact Response');
+// console.log(resp);
+// console.log('\n');
+// console.log(resp[1].pseudoJson);
+// console.log('\n')
+// console.log(resp[1].getTaggedValue());
+// console.log('\n')
+// console.log(resp[1].getTaggedValue().tag);
+// console.log('\n')
+// console.log(resp[1].getTaggedValue().value as getUsers.Output.Ok_);
+
+// console.log(resp[1].getTaggedValue().value as Record<string, any>['cases']);
+// console.dir(resp[1].getTaggedValue().value, { depth: null });
