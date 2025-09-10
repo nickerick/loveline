@@ -1,12 +1,6 @@
-import { Colors } from "@/src/constants/Colors";
-import React from "react";
-import {
-  Pressable,
-  Text,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-} from "react-native";
+import { Colors } from '@/src/constants/Colors';
+import React from 'react';
+import { Pressable, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 type StyledButtonProps = {
   title: string;
@@ -15,15 +9,14 @@ type StyledButtonProps = {
   textStyle?: TextStyle;
 };
 
-export function StyledButton({
-  title,
-  onPress,
-  style,
-  textStyle,
-}: StyledButtonProps) {
+export function StyledButton({ title, onPress, style, textStyle }: StyledButtonProps) {
   return (
     <Pressable
-      style={({ pressed }) => [styles.button, style, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        styles.button,
+        style,
+        pressed && styles.pressed,
+      ]}
       onPress={onPress}
     >
       <Text style={[styles.buttonText, textStyle]}>{title}</Text>
@@ -37,15 +30,15 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 8,
-    alignItems: "center",
+    alignItems: 'center',
     marginVertical: 8,
   },
   pressed: {
     opacity: 0.7,
   },
   buttonText: {
-    color: "#000",
-    fontWeight: "bold",
+    color: '#000',
+    fontWeight: 'bold',
     fontSize: 16,
   },
 });

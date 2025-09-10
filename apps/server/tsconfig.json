@@ -42,8 +42,9 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
 
+
     // "moduleDetection": "force",
-    "skipLibCheck": false
-    // "resolvePackageJsonExports": false
+    "skipLibCheck": false,
+        // "resolvePackageJsonExports": false
   }
 }
