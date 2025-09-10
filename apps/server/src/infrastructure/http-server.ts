@@ -16,7 +16,6 @@ export async function startHttpServer() {
         const rawBody = Buffer.concat(chunks);
         console.log('Received raw bytes:', rawBody);
   
-        // Call your server.process with Uint8Array
         let responseBytes: Uint8Array;
         try {
           responseBytes = await telepactServer.process(new Uint8Array(rawBody));
@@ -27,7 +26,6 @@ export async function startHttpServer() {
           return;
         }
   
-        // Respond with binary data
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/octet-stream');
         res.end(Buffer.from(responseBytes));
