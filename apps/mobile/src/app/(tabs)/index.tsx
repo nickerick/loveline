@@ -1,5 +1,5 @@
 import { FeedItem } from '@/src/components/feed/FeedItem';
-import { User } from '@/src/domain/post/User';
+import { User } from '@/src/domain/user/User';
 import { userService } from '@/src/infrastructure/service';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
