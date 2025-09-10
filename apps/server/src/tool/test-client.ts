@@ -4,7 +4,7 @@ import {
     Message,
     Serializer,
 } from "telepact";
-import { ClientInterface_, exampleFunction2, getUsers } from "./gen/all_";
+import { ClientInterface_, getUsers } from "../gen/all_";
 
 const adapter: (m: Message, s: Serializer) => Promise<Message> = async (m, s) => {
     // Debug
