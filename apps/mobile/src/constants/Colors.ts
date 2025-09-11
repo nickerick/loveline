@@ -30,5 +30,5 @@ export const Colors = {
     accent2: '#CDB4DB',
     accent3: '#BDE0FE',
     accent4: '#A2D2FF',
-  }
+  },
 };

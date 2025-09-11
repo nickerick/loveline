@@ -1,5 +1,5 @@
-import { createServer } from "http";
-import { createTelepactServer } from "./telepact";
+import { createServer } from 'http';
+import { createTelepactServer } from './telepact';
 
 export async function startHttpServer() {
   const telepactServer = createTelepactServer();
@@ -7,15 +7,15 @@ export async function startHttpServer() {
   const httpServer = createServer((req, res) => {
     if (req.method === 'POST' && req.url === '/api/telepact') {
       const chunks: Buffer[] = [];
-  
+
       req.on('data', (chunk) => {
         chunks.push(chunk);
       });
-  
+
       req.on('end', async () => {
         const rawBody = Buffer.concat(chunks);
         console.log('Received raw bytes:', rawBody);
-  
+
         let responseBytes: Uint8Array;
         try {
           responseBytes = await telepactServer.process(new Uint8Array(rawBody));
@@ -25,12 +25,12 @@ export async function startHttpServer() {
           res.end('Internal Server Error');
           return;
         }
-  
+
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/octet-stream');
         res.end(Buffer.from(responseBytes));
       });
-  
+
       req.on('error', (err) => {
         console.error('Request error:', err);
         res.writeHead(500);
@@ -46,5 +46,7 @@ export async function startHttpServer() {
   });
 
   const port = 8080;
-  httpServer.listen(port, () => console.log(`Server listening on http://localhost:${port}`));
+  httpServer.listen(port, () =>
+    console.log(`Server listening on http://localhost:${port}`),
+  );
 }

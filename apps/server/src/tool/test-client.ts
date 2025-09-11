@@ -1,43 +1,41 @@
-import {
-    Client,
-    ClientOptions,
-    Message,
-    Serializer,
-} from "telepact";
-import { ClientInterface_, getUsers } from "../gen/all_";
+import { Client, ClientOptions, Message, Serializer } from 'telepact';
+import { ClientInterface_, getUsers } from '../gen/all_';
 
-const adapter: (m: Message, s: Serializer) => Promise<Message> = async (m, s) => {
-    // Debug
-    console.log('Message');
-    console.log(m)
-    console.log('\n');
+const adapter: (m: Message, s: Serializer) => Promise<Message> = async (
+  m,
+  s,
+) => {
+  // Debug
+  console.log('Message');
+  console.log(m);
+  console.log('\n');
 
-    const requestBytes = s.serialize(m);
-    console.log('Serialized bytes');
-    console.log(requestBytes)
-    console.log('\n');
+  const requestBytes = s.serialize(m);
+  console.log('Serialized bytes');
+  console.log(requestBytes);
+  console.log('\n');
 
-    const deserializedMessage = s.deserialize(requestBytes);
-    console.log('Deserialized message');
-    console.log(deserializedMessage);
-    console.log('\n');
+  const deserializedMessage = s.deserialize(requestBytes);
+  console.log('Deserialized message');
+  console.log(deserializedMessage);
+  console.log('\n');
 
-    const response = await fetch("http://localhost:8081/api/telepact", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/octet-stream',
-            'Accept': 'application/octet-stream'
-        },
-        body: Buffer.from(requestBytes)
-    });
+  const response = await fetch('http://localhost:8081/api/telepact', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/octet-stream',
+      Accept: 'application/octet-stream',
+    },
+    body: Buffer.from(requestBytes),
+  });
 
-    // Debug
-    console.log('HTTP response');
-    console.log(response);
-    console.log('\n');
+  // Debug
+  console.log('HTTP response');
+  console.log(response);
+  console.log('\n');
 
-    const responseBytes = new Uint8Array(await response.arrayBuffer());
-    return s.deserialize(responseBytes);
+  const responseBytes = new Uint8Array(await response.arrayBuffer());
+  return s.deserialize(responseBytes);
 };
 
 const options = new ClientOptions();
@@ -49,13 +47,13 @@ const genClient = new ClientInterface_(client);
 
 const resp = await genClient.getUsers({}, getUsers.Input.fromTyped({}));
 
-if (resp[1].getTaggedValue().tag === "Ok_") {
-    const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
-    console.log('Users:');
-    console.dir(users, { depth: null });
+if (resp[1].getTaggedValue().tag === 'Ok_') {
+  const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
+  console.log('Users:');
+  console.dir(users, { depth: null });
 } else {
-    console.log('Error response:');
-    console.dir(resp[1].getTaggedValue().value, { depth: null });
+  console.log('Error response:');
+  console.dir(resp[1].getTaggedValue().value, { depth: null });
 }
 
 // Debug

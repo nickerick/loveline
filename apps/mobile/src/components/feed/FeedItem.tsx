@@ -5,11 +5,16 @@ type FeedItemProps = {
   text: string;
 };
 
-export function FeedItem({text}: FeedItemProps) {
+export function FeedItem({ text }: FeedItemProps) {
   const bgColor = getRandomColor();
-  
+
   return (
-    <View style={[styles.container, {backgroundColor: bgColor, borderColor: bgColor}]}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: bgColor, borderColor: bgColor },
+      ]}
+    >
       <Text>{text}</Text>
     </View>
   );
