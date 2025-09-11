@@ -1,12 +1,12 @@
-import { Colors } from "@/src/constants/Colors";
-import React from "react";
+import { Colors } from '@/src/constants/Colors';
+import React from 'react';
 import {
   Pressable,
   Text,
   StyleSheet,
   ViewStyle,
   TextStyle,
-} from "react-native";
+} from 'react-native';
 
 type StyledButtonProps = {
   title: string;
@@ -37,15 +37,15 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 8,
-    alignItems: "center",
+    alignItems: 'center',
     marginVertical: 8,
   },
   pressed: {
     opacity: 0.7,
   },
   buttonText: {
-    color: "#000",
-    fontWeight: "bold",
+    color: '#000',
+    fontWeight: 'bold',
     fontSize: 16,
   },
 });

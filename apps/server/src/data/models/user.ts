@@ -4,7 +4,7 @@ import type {
   Insertable,
   Selectable,
   Updateable,
-} from "kysely";
+} from 'kysely';
 
 export interface UserTable {
   id: Generated<string>;

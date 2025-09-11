@@ -1,9 +1,9 @@
-import { Tabs } from "expo-router";
-import React from "react";
+import { Tabs } from 'expo-router';
+import React from 'react';
 
-import { Colors } from "@/src/constants/Colors";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
-import { HapticTab } from "@/src/components/navigation/HapticTab";
+import { Colors } from '@/src/constants/Colors';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { HapticTab } from '@/src/components/navigation/HapticTab';
 
 export default function TabLayout() {
   return (
@@ -18,7 +18,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: 'Home',
           tabBarIcon: ({ color }) => (
             <AntDesign size={28} name="home" color={color} />
           ),
@@ -27,8 +27,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="messages"
         options={{
-          title: "Messages",
-          headerTitle: "",
+          title: 'Messages',
+          headerTitle: '',
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="comment-o" color={color} />
           ),
@@ -37,7 +37,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: 'Profile',
           tabBarIcon: ({ color }) => (
             <FontAwesome size={24} name="user-o" color={color} />
           ),

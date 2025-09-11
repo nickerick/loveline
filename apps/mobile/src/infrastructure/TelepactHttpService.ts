@@ -1,6 +1,6 @@
-import { Buffer } from "buffer";
-import { Client, ClientOptions, Message, Serializer } from "telepact";
-import { TelepactService, TelepactClient } from "./TelepactService";
+import { Buffer } from 'buffer';
+import { Client, ClientOptions, Message, Serializer } from 'telepact';
+import { TelepactService, TelepactClient } from './TelepactService';
 
 export class TelepactHttpService implements TelepactService {
   client: TelepactClient;
@@ -10,10 +10,10 @@ export class TelepactHttpService implements TelepactService {
       const requestBytes = s.serialize(m);
 
       const response = await fetch(`${this.baseUrl}/api/telepact`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/octet-stream",
-          Accept: "application/octet-stream",
+          'Content-Type': 'application/octet-stream',
+          Accept: 'application/octet-stream',
         },
         body: Buffer.from(requestBytes),
       });

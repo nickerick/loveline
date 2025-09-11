@@ -1,14 +1,14 @@
-import { FeedItem } from "@/src/components/feed/FeedItem";
-import { User } from "@/src/domain/user/User";
-import { userService } from "@/src/infrastructure/service";
-import React, { useEffect, useState } from "react";
+import { FeedItem } from '@/src/components/feed/FeedItem';
+import { User } from '@/src/domain/user/User';
+import { userService } from '@/src/infrastructure/service';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
   ActivityIndicator,
-} from "react-native";
+} from 'react-native';
 
 export default function Tab() {
   const [users, setUsers] = useState<User[]>([]);
@@ -47,6 +47,6 @@ const styles = StyleSheet.create({
   item: {
     padding: 20,
     borderBottomWidth: 1,
-    borderColor: "#eee",
+    borderColor: '#eee',
   },
 });

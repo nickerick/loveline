@@ -1,5 +1,5 @@
-import { Colors } from "@/src/constants/Colors";
-import { View, StyleSheet, Text } from "react-native";
+import { Colors } from '@/src/constants/Colors';
+import { View, StyleSheet, Text } from 'react-native';
 
 type FeedItemProps = {
   text: string;

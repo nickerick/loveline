@@ -3,9 +3,9 @@ import {
   User,
   exampleFunction2,
   getUsers,
-} from "../gen/all_.js";
-import { userRepository } from "../infrastructure/repository.js";
-import { UserHandler } from "./UserHandler.js";
+} from '../gen/all_.js';
+import { userRepository } from '../infrastructure/repository.js';
+import { UserHandler } from './UserHandler.js';
 
 /// Implementation of the Telepact ServerHandler_
 ///

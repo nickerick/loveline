@@ -1,6 +1,6 @@
-import { Colors } from "@/src/constants/Colors";
-import { useRouter } from "expo-router";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { Colors } from '@/src/constants/Colors';
+import { useRouter } from 'expo-router';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 export default function Tab() {
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function Tab() {
       <Button
         color={Colors.custom.accent4}
         title="click to see how pretty my girl is"
-        onPress={() => router.push("/(tabs)/profile")}
+        onPress={() => router.push('/(tabs)/profile')}
       />
     </View>
   );
@@ -29,7 +29,7 @@ export default function Tab() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

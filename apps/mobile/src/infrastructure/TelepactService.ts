@@ -1,4 +1,4 @@
-import { ClientInterface_ as TelepactClient } from "../gen/all_";
+import { ClientInterface_ as TelepactClient } from '../gen/all_';
 
 export interface TelepactService {
   client: TelepactClient;
@@ -9,4 +9,4 @@ export {
   ping,
   exampleFunction2,
   getUsers,
-} from "../gen/all_";
+} from '../gen/all_';
