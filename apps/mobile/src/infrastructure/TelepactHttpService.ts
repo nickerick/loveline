@@ -9,17 +9,17 @@ export class TelepactHttpService implements TelepactService {
     const adapter = async (m: Message, s: Serializer): Promise<Message> => {
       const requestBytes = s.serialize(m);
 
-        const response = await fetch(`${this.baseUrl}/api/telepact`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/octet-stream",
-            "Accept": "application/octet-stream",
-          },
-          body: Buffer.from(requestBytes),
-        });
-  
-        const responseBytes = new Uint8Array(await response.arrayBuffer());
-        return s.deserialize(responseBytes);
+      const response = await fetch(`${this.baseUrl}/api/telepact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/octet-stream",
+          Accept: "application/octet-stream",
+        },
+        body: Buffer.from(requestBytes),
+      });
+
+      const responseBytes = new Uint8Array(await response.arrayBuffer());
+      return s.deserialize(responseBytes);
     };
 
     const telepactClient = new Client(adapter, new ClientOptions());
