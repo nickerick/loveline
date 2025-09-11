@@ -15,8 +15,8 @@ export default function Tab() {
       <Image
         style={styles.image}
         source={require('@/assets/images/beautiful-girl.jpg')}
-        resizeMode="contain"
-        alt="pretty girl loading..."
+        resizeMode='contain'
+        alt='pretty girl loading...'
       />
     );
   }

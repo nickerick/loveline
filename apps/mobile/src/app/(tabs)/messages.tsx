@@ -19,7 +19,7 @@ export default function Tab() {
       <View style={{ height: 100 }} />
       <Button
         color={Colors.custom.accent4}
-        title="click to see how pretty my girl is"
+        title='click to see how pretty my girl is'
         onPress={() => router.push('/(tabs)/profile')}
       />
     </View>

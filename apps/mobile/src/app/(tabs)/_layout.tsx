@@ -16,30 +16,30 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name='index'
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => (
-            <AntDesign size={28} name="home" color={color} />
+            <AntDesign size={28} name='home' color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="messages"
+        name='messages'
         options={{
           title: 'Messages',
           headerTitle: '',
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="comment-o" color={color} />
+            <FontAwesome size={28} name='comment-o' color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name='profile'
         options={{
           title: 'Profile',
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={24} name="user-o" color={color} />
+            <FontAwesome size={24} name='user-o' color={color} />
           ),
         }}
       />
