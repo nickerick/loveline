@@ -1,6 +1,7 @@
 import { FeedItem } from '@/src/components/feed/FeedItem';
 import { User } from '@/src/domain/user/User';
-import { userService } from '@/src/infrastructure/service';
+import { useSafeAsync } from '@/src/hooks/useSafeAsync';
+import { announcementService } from '@/src/infrastructure/service';
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -11,29 +12,18 @@ import {
 } from 'react-native';
 
 export default function Tab() {
-  const [users, setUsers] = useState<User[]>([]);
-
-  useEffect(() => {
-    async function fetchUsers() {
-      const result = await userService.getAllUsers();
-      if (!ignore) {
-        setUsers(result);
-      }
-    }
-
-    let ignore = false;
-    fetchUsers();
-    return () => {
-      ignore = true;
-    };
-  }, []);
+  const {
+    data: announcements,
+    loading,
+    error,
+  } = useSafeAsync(() => announcementService.getAllAnnouncements());
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={users}
+        data={announcements}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <FeedItem text={item.username} />}
+        renderItem={({ item }) => <FeedItem text={item.message} />}
         // onEndReached={loadMore}
         onEndReachedThreshold={0.5}
         // ListFooterComponent={loading ? <ActivityIndicator /> : null}
