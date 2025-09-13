@@ -21,7 +21,7 @@ export class AnnouncementHandler {
         id: announcement.id,
         message: announcement.message,
         author: announcement.author,
-        createdAt: announcement.created_at.getTime(),
+        createdAt: announcement.created_at,
       });
       responseAnnouncements.push(mappedAnnouncement);
     });
@@ -50,7 +50,7 @@ export class AnnouncementHandler {
       id: newAnnouncement!.id,
       message: newAnnouncement!.message,
       author: newAnnouncement!.author,
-      createdAt: newAnnouncement!.created_at.getTime(),
+      createdAt: newAnnouncement!.created_at,
     });
 
     const output = createAnnouncement.Output.from_Ok_(
