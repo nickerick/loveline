@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export function useSafeAsync<T>(asyncFunc: () => Promise<T>, deps: any[] = []) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
 
-  useEffect(() => {
+  const run = useCallback(() => {
     let ignore = false;
 
     setLoading(true);
@@ -23,9 +23,14 @@ export function useSafeAsync<T>(asyncFunc: () => Promise<T>, deps: any[] = []) {
       });
 
     return () => {
-      ignore = true; // prevent stale update if unmounted or deps change
+      ignore = true; // cancel updates if unmounted
     };
   }, deps);
 
-  return { data, loading, error };
+  useEffect(() => {
+    const cancel = run();
+    return cancel;
+  }, [run]);
+
+  return { data, loading, error, refetch: run };
 }
