@@ -24,7 +24,7 @@ export default function Tab() {
     () => announcementService.getAllAnnouncements(),
   );
 
-  const handleCreate = async (message: string, author: string) => {
+  const handleCreate = async () => {
     if (!message.trim() || !author.trim()) return;
     await announcementService.createAnnouncement(message, author);
     fetchAnnouncements();
@@ -56,9 +56,7 @@ export default function Tab() {
         <StyledButton
           title='Create announcement'
           style={styles.button}
-          onPress={() => {
-            handleCreate;
-          }}
+          onPress={handleCreate}
         />
 
         <StyledButton
