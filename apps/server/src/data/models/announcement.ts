@@ -10,7 +10,7 @@ export interface AnnouncementTable {
   id: Generated<string>;
   message: string;
   author: string;
-  created_at: ColumnType<Date, never, never>;
+  created_at: ColumnType<number, never, never>;
 }
 
 export type DbAnnouncement = Selectable<AnnouncementTable>;
