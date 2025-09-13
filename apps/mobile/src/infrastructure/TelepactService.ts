@@ -8,4 +8,6 @@ export {
   ClientInterface_ as TelepactClient,
   ping,
   getUsers,
+  getAnnouncements,
+  createAnnouncement,
 } from '../gen/all_';
