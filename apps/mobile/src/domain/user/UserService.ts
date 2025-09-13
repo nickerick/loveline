@@ -1,8 +1,4 @@
-import {
-  exampleFunction2,
-  getUsers,
-  TelepactClient,
-} from '../../infrastructure/TelepactService';
+import { getUsers, TelepactClient } from '../../infrastructure/TelepactService';
 import { User } from './User';
 
 export class UserService {

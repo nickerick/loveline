@@ -7,6 +7,5 @@ export interface TelepactService {
 export {
   ClientInterface_ as TelepactClient,
   ping,
-  exampleFunction2,
   getUsers,
 } from '../gen/all_';

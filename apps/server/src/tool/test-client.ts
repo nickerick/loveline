@@ -42,9 +42,6 @@ const options = new ClientOptions();
 const client = new Client(adapter, options);
 const genClient = new ClientInterface_(client);
 
-// Make telepact request
-// const resp = await genClient.exampleFunction2({}, exampleFunction2.Input.fromTyped({field: 1}));
-
 const resp = await genClient.getUsers({}, getUsers.Input.fromTyped({}));
 
 if (resp[1].getTaggedValue().tag === 'Ok_') {

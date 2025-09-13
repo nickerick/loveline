@@ -9,21 +9,6 @@
         ]
     },
     {
-        "fn.exampleFunction2": {
-            "field": "integer"
-        },
-        "->": [
-            {
-                "Ok_": {}
-            },
-            {
-                "Error": {
-                    "field": "string"
-                }
-            }
-        ]
-    },
-    {
         "///": "Get list of users",
         "fn.getUsers": {},
         "->": [
