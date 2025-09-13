@@ -14,4 +14,5 @@ stop-dev:
 watch-dev:
 	docker logs -f loveline-server
 
-
+format: 
+	npx prettier . --write
