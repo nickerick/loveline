@@ -5,7 +5,7 @@ export class Announcement {
     public id: string,
     public message: string,
     public author: string,
-    public created_at: string,
+    public createdAt: string,
   ) {}
 
   static fromTelepact(announcement: Announcement_): Announcement {
@@ -13,7 +13,7 @@ export class Announcement {
       announcement.id(),
       announcement.message(),
       announcement.author(),
-      announcement.createdAt().toLocaleString(),
+      new Date(announcement.createdAt()).toLocaleString(),
     );
   }
 }

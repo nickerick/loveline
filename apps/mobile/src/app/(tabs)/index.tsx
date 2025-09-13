@@ -76,7 +76,13 @@ export default function Tab() {
       <FlatList
         data={announcements}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <FeedItem text={item.message} />}
+        renderItem={({ item }) => (
+          <FeedItem
+            text={item.message}
+            author={item.author}
+            createdAt={item.createdAt}
+          />
+        )}
         // onEndReached={loadMore}
         onEndReachedThreshold={0.5}
         // ListFooterComponent={loading ? <ActivityIndicator /> : null}
@@ -93,7 +99,6 @@ export default function Tab() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     padding: 16,
   },
   label: {
