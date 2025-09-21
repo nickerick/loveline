@@ -4,7 +4,7 @@ import {
   createAnnouncement,
   getAnnouncements,
   getUsers,
-} from '../gen/all_.js';
+} from '../gen/telepact/all_.js';
 import {
   announcementRepository,
   userRepository,

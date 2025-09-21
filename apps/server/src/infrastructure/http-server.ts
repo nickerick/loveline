@@ -1,5 +1,5 @@
 import { createServer } from 'http';
-import { createTelepactServer } from './telepact';
+import { createTelepactServer } from './telepact.js';
 
 export async function startHttpServer() {
   const telepactServer = createTelepactServer();

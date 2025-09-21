@@ -1,10 +1,10 @@
-import type { NewDbAnnouncement } from '../data/models/announcement';
-import type { AnnouncementRepository } from '../data/repositories/AnnouncementRepository';
+import type { NewDbAnnouncement } from '../data/models/announcement.js';
+import type { AnnouncementRepository } from '../data/repositories/AnnouncementRepository.js';
 import {
   Announcement,
   createAnnouncement,
   getAnnouncements,
-} from '../gen/all_';
+} from '../gen/telepact/all_.js';
 
 export class AnnouncementHandler {
   constructor(private readonly announcementRepo: AnnouncementRepository) {}

@@ -4,7 +4,7 @@ import {
   createAnnouncement,
   getAnnouncements,
   getUsers,
-} from '../gen/all_';
+} from '../gen/telepact/all_';
 
 const adapter: (m: Message, s: Serializer) => Promise<Message> = async (
   m,

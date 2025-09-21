@@ -1,5 +1,5 @@
-import type { UserRepository } from '../data/repositories/UserRepository';
-import { getUsers, User } from '../gen/all_';
+import type { UserRepository } from '../data/repositories/UserRepository.js';
+import { getUsers, User } from '../gen/telepact/all_.js';
 
 export class UserHandler {
   constructor(private readonly userRepo: UserRepository) {}
