@@ -4,11 +4,11 @@ generate:
 
 # Start development environment
 start-dev:
-	docker-compose --env-file .env.local -f docker-compose.dev.yaml up
+	docker-compose --env-file .env.local up
 
 # Stop development environment
 stop-dev:
-	docker-compose -f docker-compose.dev.yaml down
+	docker-compose down
 
 # Follow development server logs
 watch-dev:

@@ -20,7 +20,7 @@
     "fastify-raw-body": "^5.0.0",
     "kysely": "^0.28.5",
     "mysql2": "3.14.4",
-    "telepact": "file:./telepact-1.0.0-alpha.105.tgz",
+    "telepact": "1.0.0-alpha.121",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

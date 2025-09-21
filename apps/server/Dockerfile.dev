@@ -1,4 +1,4 @@
-# TODO: Make a production ready Dockerfile
+# Dockerfile used for dev environment
 
 FROM node:24-alpine
 
@@ -8,11 +8,11 @@ WORKDIR /usr/src/app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install --production
+# Install dependencies including devDependencies
+RUN npm install
 
 # Expose server port
 EXPOSE 8080
 
 # Start server in watch mode
-CMD ["npm","run","start"]
+CMD ["npm","run","dev"]
