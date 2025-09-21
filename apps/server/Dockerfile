@@ -1,18 +1,25 @@
-# TODO: Make a production ready Dockerfile
-
-FROM node:24-alpine
-
-# Set working directory
+# Stage 1: Build
+FROM node:24-alpine AS builder
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# Copy src files required for build
 COPY package*.json ./
+COPY tsconfig.json ./ 
+COPY src ./src
 
-# Install dependencies
+# Build app
+RUN npm install
+RUN npm run build
+
+# Stage 2: Production
+FROM node:24-alpine
+WORKDIR /usr/src/app
+
+COPY package*.json ./
 RUN npm install --production
 
-# Expose server port
-EXPOSE 8080
+# Copy only the compiled JS from the builder stage
+COPY --from=builder /usr/src/app/dist ./dist
 
-# Start server in watch mode
+EXPOSE 8080
 CMD ["npm","run","start"]
