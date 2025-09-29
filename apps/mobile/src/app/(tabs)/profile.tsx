@@ -17,9 +17,7 @@ export default function Tab() {
     return (
       <Image
         style={styles.image}
-        source={
-          require('@/assets/images/beautiful-girl.jpg') || { uri: sourceImage }
-        }
+        source={ { uri: sourceImage } }
         resizeMode='contain'
         alt='pretty girl loading...'
       />
