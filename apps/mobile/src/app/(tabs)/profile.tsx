@@ -7,6 +7,9 @@ export default function Tab() {
   const [showImage, setShowImage] = useState(false);
 
   function renderImageHandler() {
+    let sourceImage =
+      'https://images.pexels.com/photos/20050653/pexels-photo-20050653.jpeg?_gl=1*nwuvzk*_ga*MTM5OTc1MTA4NC4xNzU5MTE0MDg2*_ga_8JE65Q40S6*czE3NTkxMTQwODUkbzEkZzEkdDE3NTkxMTQxMzUkajEwJGwwJGgw';
+
     if (!showImage)
       return (
         <StyledButton title={'Show me!'} onPress={() => setShowImage(true)} />
@@ -14,7 +17,9 @@ export default function Tab() {
     return (
       <Image
         style={styles.image}
-        source={require('@/assets/images/beautiful-girl.jpg')}
+        source={
+          require('@/assets/images/beautiful-girl.jpg') || { uri: sourceImage }
+        }
         resizeMode='contain'
         alt='pretty girl loading...'
       />
