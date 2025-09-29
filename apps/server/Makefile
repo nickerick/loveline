@@ -25,11 +25,13 @@ prod-image:
 ifndef VERSION
 	$(error VERSION is required. Usage: make docker-push VERSION=v1.0.0)
 endif
-	@echo "Building Docker image..."
-	docker build -t ghcr.io/nickerick/loveline-service:${VERSION} .
-	@echo "Built image with tag ghcr.io/nickerick/loveline-service:$(VERSION)"
-	@echo "Pushing image..."
-	docker push ghcr.io/nickerick/loveline-service:$(VERSION)
-	docker tag ghcr.io/nickerick/loveline-service:$(VERSION) ghcr.io/nickerick/loveline-service:latest
-	docker push ghcr.io/nickerick/loveline-service:latest
-	@echo "Published image!"
+	@echo "Building multi-platform Docker image..."
+	docker buildx build \
+		--platform linux/amd64,linux/arm64 \
+		-t ghcr.io/nickerick/loveline-service:${VERSION} \
+		-t ghcr.io/nickerick/loveline-service:latest \
+		--push \
+		.
+	@echo "Built and pushed multi-platform image:"
+	@echo "  ghcr.io/nickerick/loveline-service:${VERSION}"
+	@echo "  ghcr.io/nickerick/loveline-service:latest"
