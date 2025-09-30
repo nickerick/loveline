@@ -1,5 +1,10 @@
 import { Client, ClientOptions, Message, Serializer } from 'telepact';
-import { ClientInterface_, getUsers } from '../gen/all_';
+import {
+  ClientInterface_,
+  createAnnouncement,
+  getAnnouncements,
+  getUsers,
+} from '../gen/telepact/all_';
 
 const adapter: (m: Message, s: Serializer) => Promise<Message> = async (
   m,
@@ -20,7 +25,7 @@ const adapter: (m: Message, s: Serializer) => Promise<Message> = async (
   console.log(deserializedMessage);
   console.log('\n');
 
-  const response = await fetch('http://localhost:8081/api/telepact', {
+  const response = await fetch('http://localhost:8082/api/telepact', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/octet-stream',
@@ -42,13 +47,18 @@ const options = new ClientOptions();
 const client = new Client(adapter, options);
 const genClient = new ClientInterface_(client);
 
-// Make telepact request
-// const resp = await genClient.exampleFunction2({}, exampleFunction2.Input.fromTyped({field: 1}));
-
-const resp = await genClient.getUsers({}, getUsers.Input.fromTyped({}));
+// const resp = await genClient.getUsers({}, getUsers.Input.fromTyped({}));
+const resp = await genClient.createAnnouncement(
+  {},
+  createAnnouncement.Input.fromTyped({ message: 'bob', author: 'bobcena' }),
+);
+// const resp = await genClient.getAnnouncements({}, getAnnouncements.Input.fromTyped({}));
 
 if (resp[1].getTaggedValue().tag === 'Ok_') {
-  const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
+  const users = (
+    resp[1].getTaggedValue().value as createAnnouncement.Output.Ok_
+  ).announcement();
+  // const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
   console.log('Users:');
   console.dir(users, { depth: null });
 } else {

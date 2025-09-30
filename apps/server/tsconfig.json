@@ -20,6 +20,7 @@
     "declaration": true,
     "declarationMap": true,
     "moduleResolution": "node",
+    "esModuleInterop": true,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
@@ -43,7 +44,7 @@
     "allowSyntheticDefaultImports": true,
 
     // "moduleDetection": "force",
-    "skipLibCheck": false
+    "skipLibCheck": true
     // "resolvePackageJsonExports": false
   }
 }

@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && mkdir -p dist/gen/telepact/schemas && cp src/gen/telepact/schemas/*.telepact.json dist/gen/telepact/schemas",
     "start": "node dist/index.js",
     "dev": "tsx --watch src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "testclient": "tsx src/tool/test-client.ts"
+    "testclient": "tsx src/tool/test-client.ts",
+    "format": "prettier . --write"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +20,8 @@
     "fastify-raw-body": "^5.0.0",
     "kysely": "^0.28.5",
     "mysql2": "3.14.4",
-    "telepact": "file:./telepact-1.0.0-alpha.105.tgz"
+    "telepact": "1.0.0-alpha.121",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",

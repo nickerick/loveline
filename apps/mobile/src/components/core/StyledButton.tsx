@@ -10,7 +10,7 @@ import {
 
 type StyledButtonProps = {
   title: string;
-  onPress: () => void;
+  onPress?: () => void;
   style?: ViewStyle;
   textStyle?: TextStyle;
 };
