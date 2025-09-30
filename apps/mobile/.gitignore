@@ -39,4 +39,4 @@ yarn-error.*
 app-example
 assets/images
 
-# src/gen/
+src/gen/
