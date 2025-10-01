@@ -1,4 +1,5 @@
 import { Kysely } from 'kysely';
+import { v4 as uuidv4 } from 'uuid';
 import type { Database } from '../models/database';
 import type { DbUser, NewDbUser } from '../models/user';
 
@@ -17,11 +18,18 @@ export class UserRepository {
       .executeTakeFirst();
   }
 
-  async create(user: NewDbUser): Promise<DbUser> {
-    return this.db
+  async create(newUser: NewDbUser): Promise<DbUser> {
+    const id = uuidv4();
+
+    await this.db
       .insertInto('user')
-      .values(user)
-      .returningAll()
+      .values({ id, ...newUser })
+      .execute();
+
+    return await this.db
+      .selectFrom('user')
+      .selectAll()
+      .where('id', '=', id)
       .executeTakeFirstOrThrow();
   }
 }

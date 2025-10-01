@@ -1,9 +1,6 @@
 import type { UserRepository } from '../data/repositories/UserRepository.js';
 import { login, refresh } from '../gen/telepact/all_.js';
-import {
-  generateRefreshToken,
-  generateToken
-} from '../auth/authentication.js';
+import { generateRefreshToken, generateToken } from '../auth/authentication.js';
 import bcrypt from 'bcrypt';
 
 export class AuthenticationHandler {
