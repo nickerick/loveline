@@ -9,7 +9,7 @@ import {
 import {
   verifyToken,
   unauthenticatedOutput,
-} from '../infrastructure/authentication.js';
+} from '../auth/authentication.js';
 
 export class AnnouncementHandler {
   constructor(private readonly announcementRepo: AnnouncementRepository) {}

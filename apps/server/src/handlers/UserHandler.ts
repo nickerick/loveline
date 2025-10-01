@@ -3,7 +3,7 @@ import { createUser, getUsers, User } from '../gen/telepact/all_.js';
 import {
   unauthenticatedOutput,
   verifyToken,
-} from '../infrastructure/authentication.js';
+} from '../auth/authentication.js';
 
 export class UserHandler {
   constructor(private readonly userRepo: UserRepository) {}
@@ -18,7 +18,7 @@ export class UserHandler {
     const allUsers = await this.userRepo.findAll();
 
     const responseUsers: User[] = [];
-    allUsers?.forEach((user) => {
+    allUsers.forEach((user) => {
       const mappedUser = User.fromTyped({
         id: user.id,
         username: user.username,
