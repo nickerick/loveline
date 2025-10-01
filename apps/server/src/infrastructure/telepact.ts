@@ -10,7 +10,7 @@ import { ServerHandler } from '../handlers/ServerHandler.js';
 
 export function createTelepactServer(): Server {
   // Load schema
-  const files = new TelepactSchemaFiles('dist/gen/telepact/schemas', fs, path);
+  const files = new TelepactSchemaFiles('src/gen/telepact/schemas', fs, path);
   const schema = TelepactSchema.fromFileJsonMap(files.filenamesToJson);
 
   // Handler

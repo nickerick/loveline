@@ -48,16 +48,19 @@ const client = new Client(adapter, options);
 const genClient = new ClientInterface_(client);
 
 // const resp = await genClient.getUsers({}, getUsers.Input.fromTyped({}));
-const resp = await genClient.createAnnouncement(
+// const resp = await genClient.createAnnouncement(
+//   {},
+//   createAnnouncement.Input.fromTyped({ message: 'bob', author: 'bobcena' }),
+// );
+const resp = await genClient.getAnnouncements(
   {},
-  createAnnouncement.Input.fromTyped({ message: 'bob', author: 'bobcena' }),
+  getAnnouncements.Input.fromTyped({}),
 );
-// const resp = await genClient.getAnnouncements({}, getAnnouncements.Input.fromTyped({}));
 
 if (resp[1].getTaggedValue().tag === 'Ok_') {
   const users = (
-    resp[1].getTaggedValue().value as createAnnouncement.Output.Ok_
-  ).announcement();
+    resp[1].getTaggedValue().value as getAnnouncements.Output.Ok_
+  ).announcements();
   // const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
   console.log('Users:');
   console.dir(users, { depth: null });

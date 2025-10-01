@@ -18,12 +18,14 @@
   "dependencies": {
     "fastify": "^5.5.0",
     "fastify-raw-body": "^5.0.0",
+    "jsonwebtoken": "^9.0.2",
     "kysely": "^0.28.5",
     "mysql2": "3.14.4",
     "telepact": "1.0.0-alpha.121",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.3.0",
     "prettier": "3.6.2",
     "tsx": "^4.20.5",
