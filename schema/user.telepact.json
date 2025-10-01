@@ -57,21 +57,6 @@
         ]
     },
     {
-        "///": "Authenticate a user with username and password and receive an auth token",
-        "fn.login": {
-            "username": "string",
-            "password": "string"
-        },
-        "->": [
-            {
-                "Ok_": {}
-            },
-            {
-                "InvalidCredentials": {}
-            }
-        ]
-    },
-    {
         "struct.User": {
             "id": "string",
             "email": "string",

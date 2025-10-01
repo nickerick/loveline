@@ -1,6 +1,9 @@
 import type { UserRepository } from '../data/repositories/UserRepository.js';
-import { getUsers, User } from '../gen/telepact/all_.js';
-import { unauthenticatedOutput, verifyToken } from '../infrastructure/authentication.js';
+import { createUser, getUsers, User } from '../gen/telepact/all_.js';
+import {
+  unauthenticatedOutput,
+  verifyToken,
+} from '../infrastructure/authentication.js';
 
 export class UserHandler {
   constructor(private readonly userRepo: UserRepository) {}
@@ -11,7 +14,7 @@ export class UserHandler {
   ): Promise<[Record<string, any>, getUsers.Output]> {
     const user = verifyToken(headers);
     if (!user) return unauthenticatedOutput(getUsers.Output);
-    
+
     const allUsers = await this.userRepo.findAll();
 
     const responseUsers: User[] = [];
@@ -30,9 +33,17 @@ export class UserHandler {
       getUsers.Output.Ok_.fromTyped({ users: responseUsers }),
     );
 
-    // const output2 = getUsers.Output.from_ErrorUnauthenticated__({});
     return [{}, output];
   }
 
-  // other posts-related function
+  async createUser(
+    headers: Record<string, any>,
+    input: createUser.Input,
+  ): Promise<[Record<string, any>, createUser.Output]> {
+    const output = getUsers.Output.from_Ok_(
+      getUsers.Output.Ok_.fromTyped({ users: [] }),
+    );
+
+    return [{}, output];
+  }
 }
