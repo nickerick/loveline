@@ -6,7 +6,10 @@ import {
   getAnnouncements,
   getUsers,
 } from '../gen/telepact/all_.js';
-import { verifyToken, unauthenticatedOutput } from '../infrastructure/authentication.js';
+import {
+  verifyToken,
+  unauthenticatedOutput,
+} from '../infrastructure/authentication.js';
 
 export class AnnouncementHandler {
   constructor(private readonly announcementRepo: AnnouncementRepository) {}
@@ -17,7 +20,7 @@ export class AnnouncementHandler {
   ): Promise<[Record<string, any>, getAnnouncements.Output]> {
     const user = verifyToken(headers);
     if (!user) return unauthenticatedOutput(getUsers.Output);
-    
+
     const allAnnouncements = await this.announcementRepo.findAll();
 
     const responseAnnouncements: Announcement[] = [];

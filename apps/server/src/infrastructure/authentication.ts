@@ -7,7 +7,7 @@ if (!JWT_SECRET) {
 
 /**
  * Verifies a JWT from the request headers and returns its decoded payload.
- * 
+ *
  * @param headers - The headers object from an incoming request, expected
  *   to contain the `@auth__` key with a JWT string.
  * @returns The decoded JWT payload as `JwtPayload` if verification succeeds,
@@ -29,18 +29,18 @@ export function verifyToken(headers: Record<string, any>): JwtPayload | null {
 
 /**
  * Generates a standard "unauthenticated" response tuple for RPC handlers.
- * 
+ *
  * This returns a tuple `[headers, output]` where:
  * - `headers` is an empty object `{}`
  * - `output` is an instance of the given `OutputClass` representing an
  *   `ErrorUnauthenticated__` response.
- * 
+ *
  * @template OutputType
  * @param OutputClass - The RPC Output class which must have a static method
  *   `from_ErrorUnauthenticated__` and an inner class `ErrorUnauthenticated__`.
  * @returns A tuple `[Record<string, any>, OutputType]` suitable for returning
  *   from a handler method when the caller is not authenticated.
- * 
+ *
  * @example
  * ```ts
  * return unauthenticatedOutput(getUsers.Output);
