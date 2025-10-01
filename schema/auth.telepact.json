@@ -23,7 +23,8 @@
         "->": [
             {
                 "Ok_": {
-                    "accessToken": "string"
+                    "accessToken": "string",
+                    "refreshToken": "string"
                 }
             },
             {

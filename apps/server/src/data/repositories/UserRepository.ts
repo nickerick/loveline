@@ -5,8 +5,16 @@ import type { DbUser, NewDbUser } from '../models/user';
 export class UserRepository {
   constructor(private db: Kysely<Database>) {}
 
-  async findAll(): Promise<DbUser[] | undefined> {
+  async findAll(): Promise<DbUser[]> {
     return await this.db.selectFrom('user').selectAll().execute();
+  }
+
+  async findByUsername(username: string): Promise<DbUser | undefined> {
+    return await this.db
+      .selectFrom('user')
+      .selectAll()
+      .where('username', '=', username)
+      .executeTakeFirst();
   }
 
   async create(user: NewDbUser): Promise<DbUser> {

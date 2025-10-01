@@ -1,9 +1,6 @@
 import type { UserRepository } from '../data/repositories/UserRepository.js';
 import { createUser, getUsers, User } from '../gen/telepact/all_.js';
-import {
-  unauthenticatedOutput,
-  verifyToken,
-} from '../auth/authentication.js';
+import { unauthenticatedOutput, verifyToken } from '../auth/authentication.js';
 
 export class UserHandler {
   constructor(private readonly userRepo: UserRepository) {}

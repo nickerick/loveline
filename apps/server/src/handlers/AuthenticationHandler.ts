@@ -1,9 +1,10 @@
 import type { UserRepository } from '../data/repositories/UserRepository.js';
 import { login, refresh } from '../gen/telepact/all_.js';
 import {
-  unauthenticatedOutput,
-  verifyToken,
-} from '../infrastructure/authentication.js';
+  generateRefreshToken,
+  generateToken
+} from '../auth/authentication.js';
+import bcrypt from 'bcrypt';
 
 export class AuthenticationHandler {
   constructor(private readonly userRepo: UserRepository) {}
@@ -12,13 +13,20 @@ export class AuthenticationHandler {
     headers: Record<string, any>,
     input: login.Input,
   ): Promise<[Record<string, any>, login.Output]> {
-    const password = input.password();
-    const username = input.username();
+    const user = await this.userRepo.findByUsername(input.username());
+    if (!user) return invalidCredentialsResponse();
 
-    const accessToken = 'placeholder';
+    const isMatch = await bcrypt.compare(input.password(), user.password_hash);
+    if (!isMatch) return invalidCredentialsResponse();
+
+    const accessToken = generateToken(user.id);
+    const refreshToken = generateRefreshToken(user.id);
 
     const output = login.Output.from_Ok_(
-      login.Output.Ok_.fromTyped({ accessToken: accessToken }),
+      login.Output.Ok_.fromTyped({
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      }),
     );
 
     return [{}, output];
@@ -37,3 +45,10 @@ export class AuthenticationHandler {
     return [{}, output];
   }
 }
+
+const invalidCredentialsResponse = (): [Record<string, any>, login.Output] => [
+  {},
+  login.Output.from_InvalidCredentials(
+    login.Output.InvalidCredentials.fromTyped({}),
+  ),
+];
