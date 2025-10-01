@@ -2,8 +2,10 @@ import { Client, ClientOptions, Message, Serializer } from 'telepact';
 import {
   ClientInterface_,
   createAnnouncement,
+  createUser,
   getAnnouncements,
   getUsers,
+  login,
 } from '../gen/telepact/all_';
 
 const adapter: (m: Message, s: Serializer) => Promise<Message> = async (
@@ -52,8 +54,63 @@ const genClient = new ClientInterface_(client);
 //   {},
 //   createAnnouncement.Input.fromTyped({ message: 'bob', author: 'bobcena' }),
 // );
+// const resp = await genClient.getAnnouncements(
+//   {},
+//   getAnnouncements.Input.fromTyped({}),
+// );
+
+// if (resp[1].getTaggedValue().tag === 'Ok_') {
+//   const users = (
+//     resp[1].getTaggedValue().value as getAnnouncements.Output.Ok_
+//   ).announcements();
+//   // const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
+//   console.log('Users:');
+//   console.dir(users, { depth: null });
+// } else {
+//   console.log('Error response:');
+//   console.dir(resp[1].getTaggedValue().value, { depth: null });
+// }
+
+// const resp = await genClient.createUser(
+//   {},
+//   createUser.Input.fromTyped({username: "testuser1", email: "testuser1@gmail.com", firstName: "john", lastName: "doe", password: "mypassword"
+//   }),
+// );
+
+// if (resp[1].getTaggedValue().tag === 'Ok_') {
+//   const users = (
+//     resp[1].getTaggedValue().value as createUser.Output.Ok_
+//   ).user();
+//   // const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
+//   console.log('Users:');
+//   console.dir(users, { depth: null });
+// } else {
+//   console.log('Error response:');
+//   console.dir(resp[1].getTaggedValue().value, { depth: null });
+// }
+
+// LOGIN
+// const resp = await genClient.login(
+//   {},
+//   login.Input.fromTyped({username: "testuser1", password: "mypassword"}),
+// );
+
+// if (resp[1].getTaggedValue().tag === 'Ok_') {
+//   const users = (
+//     resp[1].getTaggedValue().value as login.Output.Ok_
+//   );
+
+//   // const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
+//   console.log('Users:');
+//   console.dir(users, { depth: null });
+// } else {
+//   console.log('Error response:');
+//   console.dir(resp[1].getTaggedValue().value, { depth: null });
+// }
+
+// LOGIN
 const resp = await genClient.getAnnouncements(
-  {},
+  {'@auth__': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMmUzOGFkYS0wOGI2LTRjOWEtYTUxZS1iNDdlZjFkYWMxOWQiLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzU5MjkyNzg4LCJleHAiOjE3NTkyOTQ1ODgsImlzcyI6ImxvdmVsaW5lLXNlcnZpY2UifQ.mMpZV-wIrN1haPUL1WMcv_hxdXIDf6-DwwieEVwdkUI' },
   getAnnouncements.Input.fromTyped({}),
 );
 
