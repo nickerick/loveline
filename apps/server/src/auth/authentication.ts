@@ -5,6 +5,7 @@ import {
   type TypedJwtPayload,
   type AccessJwtPayload,
 } from './types';
+import bcrypt from 'bcrypt';
 
 const JWT_SECRET: Secret = process.env.JWT_SECRET as Secret;
 const ACCESS_TOKEN_LIFETIME = '30 mins';
@@ -76,6 +77,24 @@ export function verifyRefreshToken(token: string): string | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * Hashes a plain text password using bcrypt.
+ */
+export function hashPassword(password: string): Promise<string> {
+  const saltRounds = 10;
+  return bcrypt.hash(password, saltRounds);
+}
+
+/**
+ * Verifies if a plain text password matches a hashed password.
+ */
+export function verifyPassword(
+  inputPassword: string,
+  hashedPassword: string,
+): Promise<boolean> {
+  return bcrypt.compare(inputPassword, hashedPassword);
 }
 
 /**

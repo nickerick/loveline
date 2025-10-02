@@ -1,8 +1,11 @@
 import type { UserRepository } from '../data/repositories/UserRepository.js';
 import { createUser, getUsers, User } from '../gen/telepact/genTypes.js';
-import { unauthenticatedOutput, verifyToken } from '../auth/authentication.js';
+import {
+  hashPassword,
+  unauthenticatedOutput,
+  verifyToken,
+} from '../auth/authentication.js';
 import type { NewDbUser } from '../data/models/user.js';
-import bcrypt from 'bcrypt';
 import {
   validateEmail,
   validatePassword,
@@ -33,68 +36,36 @@ export class UserHandler {
       responseUsers.push(mappedUser);
     });
 
-    const output = getUsers.Output.from_Ok_({ users: responseUsers });
-
-    return [{}, output];
+    return [{}, getUsers.Output.from_Ok_({ users: responseUsers })];
   }
 
   async createUser(
     headers: Record<string, any>,
     input: createUser.Input,
   ): Promise<[Record<string, any>, createUser.Output]> {
-    const usernameValidation = validateUsername(input.username());
-    if (!usernameValidation.valid) {
-      return [
-        {},
-        createUser.Output.from_InvalidUsername({
-          reason: usernameValidation.reason,
-        }),
-      ];
+    const validationError = await this.validateUserInput(input);
+    if (validationError) {
+      const { field, reason } = validationError;
+      switch (field) {
+        case 'username':
+          return [{}, createUser.Output.from_InvalidUsername({ reason })];
+        case 'email':
+          return [{}, createUser.Output.from_InvalidEmail({ reason })];
+        case 'password':
+          return [{}, createUser.Output.from_InvalidPassword({ reason })];
+      }
     }
 
-    const userExists = await this.userRepo.findByUsername(input.username());
-    if (userExists) {
-      return [
-        {},
-        createUser.Output.from_InvalidUsername({
-          reason: 'This username is already taken!',
-        }),
-      ];
-    }
-
-    const emailValidation = validateEmail(input.email());
-    if (!emailValidation.valid) {
-      return [
-        {},
-        createUser.Output.from_InvalidEmail({
-          reason: emailValidation.reason,
-        }),
-      ];
-    }
-
-    const passwordValidation = validatePassword(input.password());
-    if (!passwordValidation.valid) {
-      return [
-        {},
-        createUser.Output.from_InvalidPassword({
-          reason: passwordValidation.reason,
-        }),
-      ];
-    }
-
-    const saltRounds = 10;
-    const hash = await bcrypt.hash(input.password(), saltRounds);
-
+    const passwordHash = await hashPassword(input.password());
     const newDbUser: NewDbUser = {
       username: input.username(),
       email: input.email(),
       first_name: input.firstName(),
       last_name: input.lastName(),
-      password_hash: hash,
+      password_hash: passwordHash,
     };
 
     const newUser = await this.userRepo.create(newDbUser);
-
     const responseUser = User.from({
       id: newUser.id,
       username: newUser.username,
@@ -104,5 +75,22 @@ export class UserHandler {
     });
 
     return [{}, createUser.Output.from_Ok_({ user: responseUser })];
+  }
+
+  async validateUserInput(input: createUser.Input) {
+    const username = validateUsername(input.username());
+    if (!username.valid) return { field: 'username', reason: username.reason };
+
+    const usernameExists = await this.userRepo.findByUsername(input.username());
+    if (usernameExists)
+      return { field: 'username', reason: 'This username is already taken' };
+
+    const email = validateEmail(input.email());
+    if (!email.valid) return { field: 'email', reason: email.reason };
+
+    const password = validatePassword(input.password());
+    if (!password.valid) return { field: 'password', reason: password.reason };
+
+    return null;
   }
 }

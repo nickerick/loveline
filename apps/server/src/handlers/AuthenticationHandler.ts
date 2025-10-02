@@ -3,9 +3,9 @@ import { login, refresh } from '../gen/telepact/genTypes.js';
 import {
   generateRefreshToken,
   generateToken,
+  verifyPassword,
   verifyRefreshToken,
 } from '../auth/authentication.js';
-import bcrypt from 'bcrypt';
 
 export class AuthenticationHandler {
   constructor(private readonly userRepo: UserRepository) {}
@@ -17,7 +17,7 @@ export class AuthenticationHandler {
     const user = await this.userRepo.findByUsername(input.username());
     if (!user) return [{}, login.Output.from_InvalidCredentials({})];
 
-    const isMatch = await bcrypt.compare(input.password(), user.password_hash);
+    const isMatch = await verifyPassword(input.password(), user.password_hash);
     if (!isMatch) return [{}, login.Output.from_InvalidCredentials({})];
 
     const accessToken = generateToken(user.id);
