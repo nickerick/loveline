@@ -6,7 +6,7 @@ import {
   getAnnouncements,
   getUsers,
   login,
-} from '../gen/telepact/all_';
+} from '../gen/telepact/genTypes';
 
 const adapter: (m: Message, s: Serializer) => Promise<Message> = async (
   m,
@@ -110,7 +110,10 @@ const genClient = new ClientInterface_(client);
 
 // LOGIN
 const resp = await genClient.getAnnouncements(
-  {'@auth__': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMmUzOGFkYS0wOGI2LTRjOWEtYTUxZS1iNDdlZjFkYWMxOWQiLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzU5MjkyNzg4LCJleHAiOjE3NTkyOTQ1ODgsImlzcyI6ImxvdmVsaW5lLXNlcnZpY2UifQ.mMpZV-wIrN1haPUL1WMcv_hxdXIDf6-DwwieEVwdkUI' },
+  {
+    '@auth__':
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMmUzOGFkYS0wOGI2LTRjOWEtYTUxZS1iNDdlZjFkYWMxOWQiLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzU5MjkyNzg4LCJleHAiOjE3NTkyOTQ1ODgsImlzcyI6ImxvdmVsaW5lLXNlcnZpY2UifQ.mMpZV-wIrN1haPUL1WMcv_hxdXIDf6-DwwieEVwdkUI',
+  },
   getAnnouncements.Input.fromTyped({}),
 );
 
