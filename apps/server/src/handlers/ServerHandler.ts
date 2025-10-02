@@ -6,7 +6,7 @@ import {
   getUsers,
   login,
   refresh,
-} from '../gen/telepact/all_.js';
+} from '../gen/telepact/genTypes.js';
 import {
   announcementRepository,
   userRepository,
@@ -51,7 +51,7 @@ export class ServerHandler extends ServerHandler_ {
   override async createUser(
     headers: Record<string, any>,
     input: createUser.Input,
-  ): Promise<[Record<string, any>, getUsers.Output]> {
+  ): Promise<[Record<string, any>, createUser.Output]> {
     return this.userHandler.createUser(headers, input);
   }
 
@@ -60,7 +60,7 @@ export class ServerHandler extends ServerHandler_ {
   override async getAnnouncements(
     headers: Record<string, any>,
     input: getAnnouncements.Input,
-  ): Promise<[Record<string, any>, getUsers.Output]> {
+  ): Promise<[Record<string, any>, getAnnouncements.Output]> {
     return this.announcementHandler.getAnnouncements(headers, input);
   }
 

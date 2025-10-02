@@ -5,7 +5,7 @@ import {
   createAnnouncement,
   getAnnouncements,
   getUsers,
-} from '../gen/telepact/all_.js';
+} from '../gen/telepact/genTypes.js';
 import { verifyToken, unauthenticatedOutput } from '../auth/authentication.js';
 
 export class AnnouncementHandler {
@@ -16,13 +16,13 @@ export class AnnouncementHandler {
     input: getAnnouncements.Input,
   ): Promise<[Record<string, any>, getAnnouncements.Output]> {
     const user = verifyToken(headers);
-    if (!user) return unauthenticatedOutput(getUsers.Output);
+    if (!user) return unauthenticatedOutput(getAnnouncements.Output);
 
     const allAnnouncements = await this.announcementRepo.findAll();
 
     const responseAnnouncements: Announcement[] = [];
     allAnnouncements?.forEach((announcement) => {
-      const mappedAnnouncement = Announcement.fromTyped({
+      const mappedAnnouncement = Announcement.from({
         id: announcement.id,
         message: announcement.message,
         author: announcement.author,
@@ -31,11 +31,9 @@ export class AnnouncementHandler {
       responseAnnouncements.push(mappedAnnouncement);
     });
 
-    const output = getAnnouncements.Output.from_Ok_(
-      getAnnouncements.Output.Ok_.fromTyped({
-        announcements: responseAnnouncements,
-      }),
-    );
+    const output = getAnnouncements.Output.from_Ok_({
+      announcements: responseAnnouncements,
+    });
     return [{}, output];
   }
 
@@ -51,18 +49,16 @@ export class AnnouncementHandler {
     const newAnnouncement =
       await this.announcementRepo.create(newDbAnnouncement);
 
-    const responseAnnouncement = Announcement.fromTyped({
+    const responseAnnouncement = Announcement.from({
       id: newAnnouncement!.id,
       message: newAnnouncement!.message,
       author: newAnnouncement!.author,
       createdAt: newAnnouncement!.created_at,
     });
 
-    const output = createAnnouncement.Output.from_Ok_(
-      createAnnouncement.Output.Ok_.fromTyped({
-        announcement: responseAnnouncement,
-      }),
-    );
+    const output = createAnnouncement.Output.from_Ok_({
+      announcement: responseAnnouncement,
+    });
     return [{}, output];
   }
 }

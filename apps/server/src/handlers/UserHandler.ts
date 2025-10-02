@@ -1,5 +1,5 @@
 import type { UserRepository } from '../data/repositories/UserRepository.js';
-import { createUser, getUsers, User } from '../gen/telepact/all_.js';
+import { createUser, getUsers, User } from '../gen/telepact/genTypes.js';
 import { unauthenticatedOutput, verifyToken } from '../auth/authentication.js';
 import type { NewDbUser } from '../data/models/user.js';
 import bcrypt from 'bcrypt';
@@ -18,7 +18,7 @@ export class UserHandler {
 
     const responseUsers: User[] = [];
     allUsers.forEach((user) => {
-      const mappedUser = User.fromTyped({
+      const mappedUser = User.from({
         id: user.id,
         username: user.username,
         email: user.email,
@@ -28,9 +28,7 @@ export class UserHandler {
       responseUsers.push(mappedUser);
     });
 
-    const output = getUsers.Output.from_Ok_(
-      getUsers.Output.Ok_.fromTyped({ users: responseUsers }),
-    );
+    const output = getUsers.Output.from_Ok_({ users: responseUsers });
 
     return [{}, output];
   }
@@ -52,7 +50,7 @@ export class UserHandler {
 
     const newUser = await this.userRepo.create(newDbUser);
 
-    const responseUser = User.fromTyped({
+    const responseUser = User.from({
       id: newUser.id,
       username: newUser.username,
       email: newUser.email,
@@ -60,9 +58,7 @@ export class UserHandler {
       lastName: newUser.last_name,
     });
 
-    const output = createUser.Output.from_Ok_(
-      createUser.Output.Ok_.fromTyped({ user: responseUser }),
-    );
+    const output = createUser.Output.from_Ok_({ user: responseUser });
 
     return [{}, output];
   }

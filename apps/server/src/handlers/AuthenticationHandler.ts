@@ -1,5 +1,5 @@
 import type { UserRepository } from '../data/repositories/UserRepository.js';
-import { login, refresh } from '../gen/telepact/all_.js';
+import { login, refresh } from '../gen/telepact/genTypes.js';
 import { generateRefreshToken, generateToken } from '../auth/authentication.js';
 import bcrypt from 'bcrypt';
 
@@ -19,12 +19,10 @@ export class AuthenticationHandler {
     const accessToken = generateToken(user.id);
     const refreshToken = generateRefreshToken(user.id);
 
-    const output = login.Output.from_Ok_(
-      login.Output.Ok_.fromTyped({
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-      }),
-    );
+    const output = login.Output.from_Ok_({
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
 
     return [{}, output];
   }
@@ -35,9 +33,7 @@ export class AuthenticationHandler {
   ): Promise<[Record<string, any>, refresh.Output]> {
     const accessToken = 'placeholder';
 
-    const output = refresh.Output.from_Ok_(
-      refresh.Output.Ok_.fromTyped({ accessToken: accessToken }),
-    );
+    const output = refresh.Output.from_Ok_({ accessToken: accessToken });
 
     return [{}, output];
   }
@@ -45,7 +41,5 @@ export class AuthenticationHandler {
 
 const invalidCredentialsResponse = (): [Record<string, any>, login.Output] => [
   {},
-  login.Output.from_InvalidCredentials(
-    login.Output.InvalidCredentials.fromTyped({}),
-  ),
+  login.Output.from_InvalidCredentials({}),
 ];
