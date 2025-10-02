@@ -71,23 +71,28 @@ const genClient = new ClientInterface_(client);
 //   console.dir(resp[1].getTaggedValue().value, { depth: null });
 // }
 
-// const resp = await genClient.createUser(
-//   {},
-//   createUser.Input.fromTyped({username: "testuser1", email: "testuser1@gmail.com", firstName: "john", lastName: "doe", password: "mypassword"
-//   }),
-// );
+const resp = await genClient.createUser(
+  {},
+  createUser.Input.from({
+    username: 'testufsfaser1',
+    email: 'testuserff@gmail.co',
+    firstName: 'john',
+    lastName: 'doe',
+    password: 'mypasswohkhkhkhrd',
+  }),
+);
 
-// if (resp[1].getTaggedValue().tag === 'Ok_') {
-//   const users = (
-//     resp[1].getTaggedValue().value as createUser.Output.Ok_
-//   ).user();
-//   // const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
-//   console.log('Users:');
-//   console.dir(users, { depth: null });
-// } else {
-//   console.log('Error response:');
-//   console.dir(resp[1].getTaggedValue().value, { depth: null });
-// }
+if (resp[1].getTaggedValue().tag === 'Ok_') {
+  const users = (
+    resp[1].getTaggedValue().value as createUser.Output.Ok_
+  ).user();
+  // const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
+  console.log('Users:');
+  console.dir(users, { depth: null });
+} else {
+  console.log('Error response:');
+  console.dir(resp[1].getTaggedValue().value, { depth: null });
+}
 
 // LOGIN
 // const resp = await genClient.login(
@@ -109,25 +114,25 @@ const genClient = new ClientInterface_(client);
 // }
 
 // LOGIN
-const resp = await genClient.getAnnouncements(
-  {
-    '@auth__':
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMmUzOGFkYS0wOGI2LTRjOWEtYTUxZS1iNDdlZjFkYWMxOWQiLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzU5MjkyNzg4LCJleHAiOjE3NTkyOTQ1ODgsImlzcyI6ImxvdmVsaW5lLXNlcnZpY2UifQ.mMpZV-wIrN1haPUL1WMcv_hxdXIDf6-DwwieEVwdkUI',
-  },
-  getAnnouncements.Input.fromTyped({}),
-);
+// const resp = await genClient.getAnnouncements(
+//   {
+//     '@auth__':
+//       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMmUzOGFkYS0wOGI2LTRjOWEtYTUxZS1iNDdlZjFkYWMxOWQiLCJ0eXBlIjoiYWNjZXNzIiwiaWF0IjoxNzU5MjkyNzg4LCJleHAiOjE3NTkyOTQ1ODgsImlzcyI6ImxvdmVsaW5lLXNlcnZpY2UifQ.mMpZV-wIrN1haPUL1WMcv_hxdXIDf6-DwwieEVwdkUI',
+//   },
+//   getAnnouncements.Input.from({}),
+// );
 
-if (resp[1].getTaggedValue().tag === 'Ok_') {
-  const users = (
-    resp[1].getTaggedValue().value as getAnnouncements.Output.Ok_
-  ).announcements();
-  // const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
-  console.log('Users:');
-  console.dir(users, { depth: null });
-} else {
-  console.log('Error response:');
-  console.dir(resp[1].getTaggedValue().value, { depth: null });
-}
+// if (resp[1].getTaggedValue().tag === 'Ok_') {
+//   const users = (
+//     resp[1].getTaggedValue().value as getAnnouncements.Output.Ok_
+//   ).announcements();
+//   // const users = (resp[1].getTaggedValue().value as getUsers.Output.Ok_).users();
+//   console.log('Users:');
+//   console.dir(users, { depth: null });
+// } else {
+//   console.log('Error response:');
+//   console.dir(resp[1].getTaggedValue().value, { depth: null });
+// }
 
 // Debug
 // console.log('Telepact Response');
