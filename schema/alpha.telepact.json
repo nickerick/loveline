@@ -29,7 +29,19 @@
             },
             {
                 "Error": {}
-            }
+            },
+            {
+                "///": " The credentials in the `_auth` header were missing or invalid. ",
+                "ErrorUnauthenticated__": {
+                    "message!": "string"
+                }
+            },
+             {
+                "///": " The credentials in the `_auth` header were insufficient to run the function. ",
+                "ErrorUnauthorized__": {
+                    "message!": "string"
+                }
+             }
         ]
     },
     {
