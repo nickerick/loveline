@@ -1,6 +1,10 @@
 import type { UserRepository } from '../data/repositories/UserRepository.js';
 import { login, refresh } from '../gen/telepact/genTypes.js';
-import { generateRefreshToken, generateToken } from '../auth/authentication.js';
+import {
+  generateRefreshToken,
+  generateToken,
+  verifyRefreshToken,
+} from '../auth/authentication.js';
 import bcrypt from 'bcrypt';
 
 export class AuthenticationHandler {
@@ -11,35 +15,32 @@ export class AuthenticationHandler {
     input: login.Input,
   ): Promise<[Record<string, any>, login.Output]> {
     const user = await this.userRepo.findByUsername(input.username());
-    if (!user) return invalidCredentialsResponse();
+    if (!user) return [{}, login.Output.from_InvalidCredentials({})];
 
     const isMatch = await bcrypt.compare(input.password(), user.password_hash);
-    if (!isMatch) return invalidCredentialsResponse();
+    if (!isMatch) return [{}, login.Output.from_InvalidCredentials({})];
 
     const accessToken = generateToken(user.id);
     const refreshToken = generateRefreshToken(user.id);
 
-    const output = login.Output.from_Ok_({
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    });
-
-    return [{}, output];
+    return [
+      {},
+      login.Output.from_Ok_({
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      }),
+    ];
   }
 
   async refresh(
     headers: Record<string, any>,
     input: refresh.Input,
   ): Promise<[Record<string, any>, refresh.Output]> {
-    const accessToken = 'placeholder';
+    const user = verifyRefreshToken(input.refreshToken());
+    if (!user) return [{}, refresh.Output.from_InvalidCredentials({})];
 
-    const output = refresh.Output.from_Ok_({ accessToken: accessToken });
+    const accessToken = generateToken(user);
 
-    return [{}, output];
+    return [{}, refresh.Output.from_Ok_({ accessToken: accessToken })];
   }
 }
-
-const invalidCredentialsResponse = (): [Record<string, any>, login.Output] => [
-  {},
-  login.Output.from_InvalidCredentials({}),
-];
