@@ -17,7 +17,7 @@ export default function Tab() {
     return (
       <Image
         style={styles.image}
-        source={ { uri: sourceImage } }
+        source={{ uri: sourceImage }}
         resizeMode='contain'
         alt='pretty girl loading...'
       />

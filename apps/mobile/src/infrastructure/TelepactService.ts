@@ -1,4 +1,4 @@
-import { ClientInterface_ as TelepactClient } from '../gen/all_';
+import { ClientInterface_ as TelepactClient } from '../gen/genTypes';
 
 export interface TelepactService {
   client: TelepactClient;
@@ -10,4 +10,4 @@ export {
   getUsers,
   getAnnouncements,
   createAnnouncement,
-} from '../gen/all_';
+} from '../gen/genTypes';
