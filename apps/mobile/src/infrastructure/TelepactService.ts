@@ -10,4 +10,7 @@ export {
   getUsers,
   getAnnouncements,
   createAnnouncement,
+  login,
+  refresh,
+  createUser,
 } from '../gen/genTypes';
