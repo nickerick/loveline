@@ -19,6 +19,18 @@ export function createTelepactServer(): Server {
   // Options
   const options = new ServerOptions();
   options.onError = (err) => console.error('Telepact server error:', err);
+  options.onRequest = (message) =>
+    console.log(
+      'Recived request:',
+      message.getBodyTarget(),
+      message.getBodyPayload(),
+    );
+  options.onResponse = (message) =>
+    console.log(
+      'Response sent:',
+      message.getBodyTarget(),
+      message.getBodyPayload(),
+    );
   options.authRequired = false;
 
   return new Server(schema, handler.handler.bind(handler), options);
