@@ -25,7 +25,7 @@ export default function LoginScreen() {
     if (!success) {
       setError('Invalid username or password');
     } else {
-      router.push('/(tabs)');
+      router.replace('/(tabs)');
     }
   };
 
