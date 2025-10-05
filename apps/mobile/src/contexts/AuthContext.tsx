@@ -22,6 +22,7 @@ interface AuthContextValue {
   user: AuthUser | null;
   accessToken: string | null;
   login: (userId: string, password: string) => Promise<boolean>;
+  logout: () => Promise<void>;
   refreshAccessToken: () => Promise<boolean>;
 }
 
@@ -58,6 +59,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     refreshAuth();
   }, []);
+
+  /**
+   * Logs user out of platform
+   * Deletes cached access and refresh tokens
+   */
+  const logout = async () => {
+    await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
+    setAccessToken(null);
+    setUser(null);
+    setLoading(false);
+  };
 
   /**
    * Logs in the user using username and password.
@@ -128,7 +140,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ loading, user, accessToken, login, refreshAccessToken }}
+      value={{ loading, user, accessToken, login, logout, refreshAccessToken }}
     >
       {children}
     </AuthContext.Provider>
