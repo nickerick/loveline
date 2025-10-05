@@ -9,29 +9,37 @@ export default function AuthLandingScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>loveline ♡</Text>
-      <StyledButton
-        title='Login'
-        onPress={() => router.push('/auth/login')}
-        style={{
-          backgroundColor: Colors.custom.accent1,
-          borderColor: Colors.white,
-          borderWidth: 2,
-          width: '80%',
-        }}
-        textStyle={{ color: '#FFF', fontWeight: '700' }}
-      />
-      <StyledButton
-        title='Sign up'
-        onPress={() => router.push('/auth/signup')}
-        style={{
-          backgroundColor: Colors.white,
-          borderColor: Colors.custom.accent1,
-          borderWidth: 2,
-          width: '80%',
-        }}
-        textStyle={{ color: Colors.custom.primary, fontWeight: '700' }}
-      />
+      <View style={styles.top}>
+        <Text style={styles.title}>loveline ♡</Text>
+      </View>
+
+      <View style={styles.bottom}>
+        <StyledButton
+          title='Login'
+          onPress={() => router.push('/auth/login')}
+          style={[
+            styles.button,
+            {
+              backgroundColor: Colors.custom.accent1,
+              borderColor: Colors.white,
+            },
+          ]}
+          textStyle={{ color: Colors.white }}
+        />
+        <StyledButton
+          title='Sign up'
+          onPress={() => router.push('/auth/signup')}
+          style={[
+            styles.button,
+            {
+              backgroundColor: Colors.white,
+              borderColor: Colors.custom.accent1,
+              marginTop: 8,
+            },
+          ]}
+          textStyle={{ color: Colors.custom.primary }}
+        />
+      </View>
     </View>
   );
 }
@@ -39,16 +47,27 @@ export default function AuthLandingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingHorizontal: 24,
     backgroundColor: Colors.custom.primary,
+  },
+  top: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottom: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 34,
     fontWeight: 'bold',
-    marginBottom: 12,
     color: Colors.white,
     textAlign: 'center',
+  },
+  button: {
+    borderWidth: 2,
+    width: '80%',
   },
 });
