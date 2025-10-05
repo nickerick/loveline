@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setAccessToken(null);
     setUser(null);
     setInitializing(false);
-    router.push('/auth/landing');
+    router.replace('/auth/landing');
   };
 
   /**

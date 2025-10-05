@@ -16,7 +16,7 @@ export default function AuthLandingScreen() {
       <View style={styles.bottom}>
         <StyledButton
           title='Login'
-          onPress={() => router.push('/auth/login')}
+          onPress={() => router.replace('/auth/login')}
           style={[
             styles.button,
             {
@@ -28,7 +28,7 @@ export default function AuthLandingScreen() {
         />
         <StyledButton
           title='Sign up'
-          onPress={() => router.push('/auth/signup')}
+          onPress={() => router.replace('/auth/signup')}
           style={[
             styles.button,
             {
