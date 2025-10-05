@@ -100,6 +100,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const refreshAccessToken = async (): Promise<boolean> => {
     const refreshToken = await SecureStore.getItemAsync(REFRESH_TOKEN_KEY);
     if (!refreshToken) return false;
+    // const refreshToken = 'test';
+    // console.log('here4');
 
     const response = await client.refresh(
       {},

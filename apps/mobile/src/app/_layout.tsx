@@ -30,18 +30,20 @@ export default function RootLayout() {
 }
 
 const AppContent = () => {
-  const {user, loading} = useAuth();
+  const { user, loading } = useAuth();
+  const authenticated = user != null;
 
-  if (true) {
+  if (loading) {
     return <SplashScreen />;
   }
-  
+
   return (
-    <>
-      <Stack>
-        <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-        <Stack.Screen name='+not-found' />
-      </Stack>
-    </>
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={authenticated}>
+        <Stack.Screen name='(tabs)' />
+      </Stack.Protected>
+      <Stack.Screen name='auth/landing' />
+      <Stack.Screen name='+not-found' />
+    </Stack>
   );
 };
