@@ -30,10 +30,10 @@ export default function RootLayout() {
 }
 
 const AppContent = () => {
-  const { user, loading } = useAuth();
+  const { user, initializing } = useAuth();
   const authenticated = user != null;
 
-  if (loading) {
+  if (initializing) {
     return <SplashScreen />;
   }
 

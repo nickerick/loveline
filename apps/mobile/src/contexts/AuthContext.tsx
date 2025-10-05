@@ -11,6 +11,7 @@ import {
   refresh,
 } from '../infrastructure/TelepactService';
 import { telepactService } from '../infrastructure/service';
+import { useRouter } from 'expo-router';
 
 /** Represents the authenticated user */
 export type AuthUser = {
@@ -18,7 +19,7 @@ export type AuthUser = {
 };
 
 interface AuthContextValue {
-  loading: boolean;
+  initializing: boolean;
   user: AuthUser | null;
   accessToken: string | null;
   login: (userId: string, password: string) => Promise<boolean>;
@@ -40,9 +41,11 @@ export const AuthContext = createContext<AuthContextValue | undefined>(
  * Handles login, token refresh, and exposes loading/user state.
  */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [loading, setLoading] = useState(true);
+  const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
+
+  const router = useRouter();
 
   /**
    * On mount, attempt to load a refresh token from secure storage
@@ -54,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (refreshToken) {
         await refreshAccessToken();
       }
-      setLoading(false);
+      setInitializing(false);
     }
 
     refreshAuth();
@@ -68,7 +71,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
     setAccessToken(null);
     setUser(null);
-    setLoading(false);
+    setInitializing(false);
+    router.push('/auth/landing');
   };
 
   /**
@@ -140,7 +144,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ loading, user, accessToken, login, logout, refreshAccessToken }}
+      value={{
+        initializing,
+        user,
+        accessToken,
+        login,
+        logout,
+        refreshAccessToken,
+      }}
     >
       {children}
     </AuthContext.Provider>
