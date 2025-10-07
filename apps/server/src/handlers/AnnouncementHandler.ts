@@ -15,9 +15,6 @@ export class AnnouncementHandler {
     headers: Record<string, any>,
     input: getAnnouncements.Input,
   ): Promise<[Record<string, any>, getAnnouncements.Output]> {
-    const user = verifyToken(headers);
-    if (!user) return unauthenticatedOutput(getAnnouncements.Output);
-
     const allAnnouncements = await this.announcementRepo.findAll();
 
     const responseAnnouncements: Announcement[] = [];
