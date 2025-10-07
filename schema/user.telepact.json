@@ -1,0 +1,68 @@
+[
+    {
+        "///": "Get a list of all users",
+        "fn.getUsers": {},
+        "->": [
+            {
+                "Ok_": {
+                    "users": [
+                        "struct.User"
+                    ]
+                }
+            },
+            {
+                "///": " The credentials in the `_auth` header were missing or invalid. ",
+                "ErrorUnauthenticated__": {
+                    "message!": "string"
+                }
+            },
+             {
+                "///": " The credentials in the `_auth` header were insufficient to run the function. ",
+                "ErrorUnauthorized__": {
+                    "message!": "string"
+                }
+             }
+        ]
+    },
+    {
+        "///": "Create a user",
+        "fn.createUser": {
+            "username": "string",
+            "email": "string",
+            "firstName": "string",
+            "lastName": "string",
+            "password": "string"
+        },
+        "->": [
+            {
+                "Ok_": {
+                    "user": "struct.User"
+                }
+            },
+            {
+                "InvalidUsername": {
+                    "reason": "string"
+                }
+            },
+            {
+                "InvalidEmail": {
+                    "reason": "string"
+                }
+            },
+            {
+                "InvalidPassword": {
+                    "reason": "string"
+                }
+            }
+        ]
+    },
+    {
+        "struct.User": {
+            "id": "string",
+            "email": "string",
+            "username": "string",
+            "firstName": "string",
+            "lastName": "string"
+        }
+    }
+]

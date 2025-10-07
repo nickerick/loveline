@@ -9,7 +9,7 @@ export class UserService {
 
     try {
       console.log('service entryasdfadsf');
-      const resp = await this.client.getUsers({}, getUsers.Input.fromTyped({}));
+      const resp = await this.client.getUsers({}, getUsers.Input.from({}));
 
       console.log('service afaster');
 
