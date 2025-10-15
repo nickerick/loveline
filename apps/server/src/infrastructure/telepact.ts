@@ -12,6 +12,7 @@ import { verifyToken } from '../auth/authentication.js';
 
 export function createTelepactServer(): Server {
   // Load schema
+  // TODO: Dynamically swap this to dist at build time
   const files = new TelepactSchemaFiles('src/gen/telepact/schemas', fs, path);
   const schema = TelepactSchema.fromFileJsonMap(files.filenamesToJson);
 
