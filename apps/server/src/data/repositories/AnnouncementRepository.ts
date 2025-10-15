@@ -7,7 +7,11 @@ export class AnnouncementRepository {
   constructor(private db: Kysely<Database>) {}
 
   async findAll(): Promise<DbAnnouncement[] | undefined> {
-    return await this.db.selectFrom('announcement').selectAll().execute();
+    return await this.db
+      .selectFrom('announcement')
+      .selectAll()
+      .orderBy('created_at', 'desc')
+      .execute();
   }
 
   async findById(id: string): Promise<DbAnnouncement | undefined> {
