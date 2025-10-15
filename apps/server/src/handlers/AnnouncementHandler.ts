@@ -4,9 +4,7 @@ import {
   Announcement,
   createAnnouncement,
   getAnnouncements,
-  getUsers,
 } from '../gen/telepact/genTypes.js';
-import { verifyToken, unauthenticatedOutput } from '../auth/authentication.js';
 
 export class AnnouncementHandler {
   constructor(private readonly announcementRepo: AnnouncementRepository) {}
