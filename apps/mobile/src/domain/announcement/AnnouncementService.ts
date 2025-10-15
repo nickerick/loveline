@@ -12,7 +12,7 @@ export class AnnouncementService {
     try {
       const resp = await this.client.getAnnouncements(
         {},
-        getAnnouncements.Input.fromTyped({}),
+        getAnnouncements.Input.from({}),
       );
 
       if (resp[1].getTaggedValue().tag === 'Ok_') {
@@ -40,7 +40,7 @@ export class AnnouncementService {
     try {
       const resp = await this.client.createAnnouncement(
         {},
-        createAnnouncement.Input.fromTyped({
+        createAnnouncement.Input.from({
           message: message,
           author: author,
         }),

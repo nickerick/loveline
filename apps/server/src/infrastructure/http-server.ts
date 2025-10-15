@@ -14,7 +14,7 @@ export async function startHttpServer() {
 
       req.on('end', async () => {
         const rawBody = Buffer.concat(chunks);
-        console.log('Received raw bytes:', rawBody);
+        // console.log('Received raw bytes:', rawBody);
 
         let responseBytes: Uint8Array;
         try {

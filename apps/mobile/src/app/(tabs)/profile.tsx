@@ -1,10 +1,12 @@
 import { StyledButton } from '@/src/components/core/StyledButton';
 import { Colors } from '@/src/constants/Colors';
+import { useAuth } from '@/src/hooks/useAuth';
 import { useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
 export default function Tab() {
   const [showImage, setShowImage] = useState(false);
+  const { logout } = useAuth();
 
   function renderImageHandler() {
     let sourceImage =
@@ -17,7 +19,7 @@ export default function Tab() {
     return (
       <Image
         style={styles.image}
-        source={ { uri: sourceImage } }
+        source={{ uri: sourceImage }}
         resizeMode='contain'
         alt='pretty girl loading...'
       />
@@ -26,6 +28,7 @@ export default function Tab() {
 
   return (
     <View style={styles.container}>
+      <StyledButton title='Sign out' onPress={() => logout()} />
       <Text>This is where my pretty girl is</Text>
       <View style={{ height: 10 }} />
       {renderImageHandler()}
