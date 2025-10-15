@@ -1,4 +1,8 @@
-import { getUsers, TelepactClient } from '../../infrastructure/TelepactService';
+import {
+  createUser,
+  getUsers,
+  TelepactClient,
+} from '../../infrastructure/TelepactService';
 import { User } from './User';
 
 export class UserService {
@@ -35,5 +39,29 @@ export class UserService {
 
     console.log('service exit empty');
     return [];
+  }
+
+  async createUser(
+    username: string,
+    email: string,
+    firstName: string,
+    lastName: string,
+    password: string,
+  ): Promise<void> {
+    const resp = await this.client.createUser(
+      {},
+      createUser.Input.from({
+        username: username,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        password: password,
+      }),
+    );
+
+    const output = resp[1].getTaggedValue();
+    if (output.tag !== 'Ok_') {
+      throw Error('Failed to create user');
+    }
   }
 }

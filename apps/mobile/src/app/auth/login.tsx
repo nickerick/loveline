@@ -11,6 +11,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { StyledButton } from '@/src/components/core/StyledButton';
 import { Colors } from '@/src/constants/Colors';
 import { useAuth } from '@/src/hooks/useAuth';
+import { useSearchParams } from 'expo-router/build/hooks';
 
 type LoginFormInputs = {
   username: string;
@@ -18,7 +19,9 @@ type LoginFormInputs = {
 };
 
 export default function LoginScreen() {
+  const params = useSearchParams();
   const { login } = useAuth();
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -27,7 +30,10 @@ export default function LoginScreen() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>({
-    defaultValues: { username: '', password: '' },
+    defaultValues: {
+      username: params.get('username') ?? '',
+      password: params.get('password') ?? '',
+    },
   });
 
   const onSubmit = async (data: LoginFormInputs) => {
