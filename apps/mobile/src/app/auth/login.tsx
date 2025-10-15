@@ -1,25 +1,41 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
-import { Link, useRouter } from 'expo-router';
-import { Colors } from '@/src/constants/Colors';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ActivityIndicator,
+} from 'react-native';
+import { Link, router } from 'expo-router';
+import { useForm, Controller } from 'react-hook-form';
 import { StyledButton } from '@/src/components/core/StyledButton';
+import { Colors } from '@/src/constants/Colors';
 import { useAuth } from '@/src/hooks/useAuth';
 
-export default function LoginScreen() {
-  const router = useRouter();
-  const { login } = useAuth();
+type LoginFormInputs = {
+  username: string;
+  password: string;
+};
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginScreen() {
+  const { login } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [focusedInput, setFocusedInput] = useState<
-    'username' | 'password' | null
-  >(null);
 
-  const handleLogin = async () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormInputs>({
+    defaultValues: { username: '', password: '' },
+  });
+
+  const onSubmit = async (data: LoginFormInputs) => {
     setLoading(true);
-    const success = await login(username, password);
+    setError(null);
+
+    const success = await login(data.username, data.password);
+
     setLoading(false);
 
     if (!success) {
@@ -31,65 +47,80 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.top}>
-        <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Login</Text>
+
+      <View style={styles.inputContainer}>
+        <Controller
+          control={control}
+          name='username'
+          rules={{ required: 'Username is required' }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={[styles.input, errors.username && styles.errorInput]}
+              placeholder='Username'
+              placeholderTextColor='#999'
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              editable={!loading}
+            />
+          )}
+        />
+        {errors.username && (
+          <Text style={styles.errorText}>{errors.username.message}</Text>
+        )}
+
+        <Controller
+          control={control}
+          name='password'
+          rules={{ required: 'Password is required' }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              style={[styles.input, errors.password && styles.errorInput]}
+              placeholder='Password'
+              placeholderTextColor='#999'
+              secureTextEntry
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              editable={!loading}
+            />
+          )}
+        />
+        {errors.password && (
+          <Text style={styles.errorText}>{errors.password.message}</Text>
+        )}
       </View>
 
-      <View style={styles.bottom}>
-        <View style={{ width: '90%', flex: 1 }}>
-          <TextInput
-            placeholder='Username'
-            value={username}
-            onChangeText={setUsername}
-            onFocus={() => setFocusedInput('username')}
-            onBlur={() => setFocusedInput(null)}
-            style={[
-              styles.input,
-              focusedInput === 'username' && {
-                borderBottomColor: Colors.custom.accent1,
-              },
-            ]}
-            autoCapitalize='none'
-          />
-          <TextInput
-            placeholder='Password'
-            value={password}
-            onChangeText={setPassword}
-            onFocus={() => setFocusedInput('password')}
-            onBlur={() => setFocusedInput(null)}
-            secureTextEntry
-            style={[
-              styles.input,
-              focusedInput === 'password' && {
-                borderBottomColor: Colors.custom.accent1,
-              },
-              { marginTop: 30 },
-            ]}
-          />
-        </View>
+      {error && <Text style={styles.errorText}>{error}</Text>}
 
-        {error && <Text style={styles.error}>{error}</Text>}
+      <StyledButton
+        title={loading ? 'Logging in...' : 'Login'}
+        onPress={handleSubmit(onSubmit)}
+        style={[
+          styles.button,
+          {
+            backgroundColor: Colors.custom.accent1,
+            opacity: loading ? 0.6 : 1,
+          },
+        ]}
+        textStyle={{ color: Colors.white }}
+        disabled={loading}
+      />
 
-        <View style={{ flex: 2, width: '90%' }}>
-          <StyledButton
-            title={loading ? 'Logging in...' : 'Login'}
-            onPress={handleLogin}
-            style={[
-              styles.button,
-              {
-                backgroundColor: Colors.custom.accent1,
-                borderColor: Colors.custom.accent1,
-              },
-            ]}
-            textStyle={{ color: Colors.white }}
-          />
-          <Text style={styles.signupText}>
-            New user?{' '}
-            <Link href='/auth/signup' style={styles.signupLink}>
-              Sign up
-            </Link>
-          </Text>
-        </View>
+      {loading && (
+        <ActivityIndicator
+          size='small'
+          color={Colors.custom.primary}
+          style={{ marginTop: 12 }}
+        />
+      )}
+
+      <View style={{ flexDirection: 'row', marginTop: 8 }}>
+        <Text style={{ color: Colors.black }}>New user? </Text>
+        <Link href={'/auth/signup'} style={styles.signUpText}>
+          Click here to create account
+        </Link>
       </View>
     </View>
   );
@@ -100,46 +131,45 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 24,
     backgroundColor: Colors.white,
-  },
-  top: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  bottom: {
-    flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
-    fontSize: 28,
+    fontSize: 34,
     fontWeight: 'bold',
     color: Colors.custom.primary,
-    textAlign: 'center',
+    marginBottom: 40,
+  },
+  inputContainer: {
+    width: '100%',
+    marginBottom: 24,
   },
   input: {
-    width: '90%',
-    paddingVertical: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: '#ccc',
-    marginVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.custom.tint,
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    marginBottom: 12,
+    fontSize: 16,
+    color: Colors.black,
   },
-  button: {
-    borderWidth: 2,
-    width: '90%',
+  errorInput: {
+    borderBottomColor: 'red',
   },
-  error: {
+  errorText: {
     color: 'red',
     marginBottom: 8,
-    textAlign: 'center',
-  },
-  signupText: {
-    color: Colors.custom.tint,
     fontSize: 12,
   },
-  signupLink: {
+  button: {
+    width: '80%',
+    borderRadius: 8,
+    paddingVertical: 14,
+    alignItems: 'center',
+    marginVertical: 8,
+  },
+  signUpText: {
     color: Colors.custom.primary,
-    fontWeight: 'bold',
     textDecorationLine: 'underline',
   },
 });

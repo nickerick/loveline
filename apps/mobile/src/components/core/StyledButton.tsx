@@ -14,6 +14,7 @@ type StyledButtonProps = {
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
+  disabled?: boolean;
 };
 
 export function StyledButton({
@@ -21,11 +22,14 @@ export function StyledButton({
   onPress,
   style,
   textStyle,
+  disabled,
 }: StyledButtonProps) {
+  console.log('styled button rerendersd');
   return (
     <Pressable
       style={({ pressed }) => [styles.button, style, pressed && styles.pressed]}
       onPress={onPress}
+      disabled={disabled}
     >
       <Text style={[styles.buttonText, textStyle]}>{title}</Text>
     </Pressable>
