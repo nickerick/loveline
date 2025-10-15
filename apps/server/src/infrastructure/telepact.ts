@@ -27,8 +27,8 @@ export function createTelepactServer(): Server {
   options.onResponse = (message) =>
     console.log(
       'Response sent:',
-      message.getBodyTarget(),
-      message.getBodyPayload(),
+      JSON.stringify(message.getBodyTarget(), null, 2),
+      JSON.stringify(message.getBodyPayload(), null, 2),
     );
   options.authRequired = false;
 
@@ -55,4 +55,4 @@ async function serverHandler(message: Message): Promise<Message> {
   return response;
 }
 
-const authExclusions = ['fn.login'];
+const authExclusions = ['fn.login', 'fn.refresh', 'fn.createUser'];

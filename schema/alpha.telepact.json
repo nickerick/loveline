@@ -33,7 +33,7 @@
             {
                 "///": " The credentials in the `_auth` header were missing or invalid. ",
                 "ErrorUnauthenticated__": {
-                    "message!": "string"
+                    "message": "string"
                 }
             },
              {
