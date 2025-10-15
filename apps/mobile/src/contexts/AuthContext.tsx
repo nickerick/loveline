@@ -94,6 +94,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     switch (output.tag) {
       case 'Ok_':
         setAccessToken(output.value.accessToken());
+        telepactService.setAccessToken(output.value.accessToken());
         setUser({ userId: 'bruhme' });
         await SecureStore.setItemAsync(
           REFRESH_TOKEN_KEY,
@@ -128,6 +129,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     switch (output.tag) {
       case 'Ok_':
         setAccessToken(output.value.accessToken());
+        telepactService.setAccessToken(output.value.accessToken());
         // TODO: Verify actually prevents unneceessary re-renders
         setUser((prev) => {
           const next = { userId: 'bruhme' };
