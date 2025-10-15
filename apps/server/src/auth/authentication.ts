@@ -1,10 +1,10 @@
-import jwt, { type Secret, type JwtPayload } from 'jsonwebtoken';
+import jwt, { type Secret } from 'jsonwebtoken';
 import {
   TokenType,
   type AuthUser,
   type TypedJwtPayload,
   type AccessJwtPayload,
-} from './types';
+} from './types.js';
 import bcrypt from 'bcrypt';
 
 const JWT_SECRET: Secret = process.env.JWT_SECRET as Secret;
