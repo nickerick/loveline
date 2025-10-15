@@ -8,8 +8,8 @@ export class TelepactHttpService implements TelepactService {
 
   constructor(private baseUrl: string) {
     const adapter = async (m: Message, s: Serializer): Promise<Message> => {
-      m.headers = {...m.headers, '@auth__': this.accessToken}
-      
+      m.headers = { ...m.headers, '@auth__': this.accessToken };
+
       const requestBytes = s.serialize(m);
 
       const response = await fetch(`${this.baseUrl}/api/telepact`, {

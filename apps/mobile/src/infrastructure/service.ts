@@ -5,7 +5,7 @@ import { TelepactHttpService } from './TelepactHttpService';
 // http://172.20.10.4:8081
 // 'https://loveline.nickerick.com'
 export const telepactService = new TelepactHttpService(
-  'https://loveline.nickerick.com'
+  'https://loveline.nickerick.com',
 );
 export const userService = new UserService(telepactService.client);
 export const announcementService = new AnnouncementService(
