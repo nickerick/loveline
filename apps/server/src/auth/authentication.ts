@@ -6,6 +6,7 @@ import {
   type AccessJwtPayload,
 } from './types.js';
 import bcrypt from 'bcrypt';
+import type { TypedMessage } from 'telepact';
 
 const JWT_SECRET: Secret = process.env.JWT_SECRET as Secret;
 const ACCESS_TOKEN_LIFETIME = '30 mins';
@@ -119,11 +120,11 @@ export function verifyPassword(
  */
 export function unauthenticatedOutput<OutputType>(OutputClass: {
   from_ErrorUnauthenticated__: (payload: any) => OutputType;
-}): [Record<string, any>, OutputType] {
-  return [
-    {},
-    OutputClass.from_ErrorUnauthenticated__(
+}): TypedMessage<OutputType> {
+  return {
+    headers: {},
+    body: OutputClass.from_ErrorUnauthenticated__(
       new (OutputClass as any).ErrorUnauthenticated__({}),
     ),
-  ];
+  };
 }

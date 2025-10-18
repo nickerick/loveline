@@ -1,3 +1,4 @@
+import type { TypedMessage } from 'telepact';
 import type { NewDbAnnouncement } from '../data/models/announcement.js';
 import type { AnnouncementRepository } from '../data/repositories/AnnouncementRepository.js';
 import {
@@ -12,7 +13,7 @@ export class AnnouncementHandler {
   async getAnnouncements(
     headers: Record<string, any>,
     input: getAnnouncements.Input,
-  ): Promise<[Record<string, any>, getAnnouncements.Output]> {
+  ): Promise<TypedMessage<getAnnouncements.Output>> {
     const allAnnouncements = await this.announcementRepo.findAll();
 
     const responseAnnouncements: Announcement[] = [];
@@ -29,13 +30,13 @@ export class AnnouncementHandler {
     const output = getAnnouncements.Output.from_Ok_({
       announcements: responseAnnouncements,
     });
-    return [{}, output];
+    return { headers: {}, body: output };
   }
 
   async createAnnouncement(
     headers: Record<string, any>,
     input: createAnnouncement.Input,
-  ): Promise<[Record<string, any>, createAnnouncement.Output]> {
+  ): Promise<TypedMessage<createAnnouncement.Output>> {
     const newDbAnnouncement: NewDbAnnouncement = {
       message: input.message(),
       author: input.author(),
@@ -54,6 +55,6 @@ export class AnnouncementHandler {
     const output = createAnnouncement.Output.from_Ok_({
       announcement: responseAnnouncement,
     });
-    return [{}, output];
+    return { headers: {}, body: output };
   }
 }

@@ -1,5 +1,6 @@
+import type { TypedMessage } from 'telepact';
 import {
-  ServerHandler_,
+  TypedServerHandler,
   createAnnouncement,
   createUser,
   getAnnouncements,
@@ -18,7 +19,7 @@ import { UserHandler } from './UserHandler.js';
 /// Implementation of the Telepact ServerHandler_
 ///
 /// This default handler routes interface methods to their specific domain handlers
-export class ServerHandler extends ServerHandler_ {
+export class ServerHandler extends TypedServerHandler {
   private authenticationHandler = new AuthenticationHandler(userRepository);
   private userHandler = new UserHandler(userRepository);
   private announcementHandler = new AnnouncementHandler(announcementRepository);
@@ -28,14 +29,14 @@ export class ServerHandler extends ServerHandler_ {
   override async login(
     headers: Record<string, any>,
     input: login.Input,
-  ): Promise<[Record<string, any>, login.Output]> {
+  ): Promise<TypedMessage<login.Output>> {
     return this.authenticationHandler.login(headers, input);
   }
 
   override async refresh(
     headers: Record<string, any>,
     input: refresh.Input,
-  ): Promise<[Record<string, any>, refresh.Output]> {
+  ): Promise<TypedMessage<refresh.Output>> {
     return this.authenticationHandler.refresh(headers, input);
   }
 
@@ -44,14 +45,14 @@ export class ServerHandler extends ServerHandler_ {
   override async getUsers(
     headers: Record<string, any>,
     input: getUsers.Input,
-  ): Promise<[Record<string, any>, getUsers.Output]> {
+  ): Promise<TypedMessage<getUsers.Output>> {
     return this.userHandler.getUsers(headers, input);
   }
 
   override async createUser(
     headers: Record<string, any>,
     input: createUser.Input,
-  ): Promise<[Record<string, any>, createUser.Output]> {
+  ): Promise<TypedMessage<createUser.Output>> {
     return this.userHandler.createUser(headers, input);
   }
 
@@ -60,14 +61,14 @@ export class ServerHandler extends ServerHandler_ {
   override async getAnnouncements(
     headers: Record<string, any>,
     input: getAnnouncements.Input,
-  ): Promise<[Record<string, any>, getAnnouncements.Output]> {
+  ): Promise<TypedMessage<getAnnouncements.Output>> {
     return this.announcementHandler.getAnnouncements(headers, input);
   }
 
   override async createAnnouncement(
     headers: Record<string, any>,
     input: createAnnouncement.Input,
-  ): Promise<[Record<string, any>, createAnnouncement.Output]> {
+  ): Promise<TypedMessage<createAnnouncement.Output>> {
     return this.announcementHandler.createAnnouncement(headers, input);
   }
 }
