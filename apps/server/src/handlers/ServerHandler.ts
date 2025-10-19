@@ -3,12 +3,8 @@ import {
   TypedServerHandler,
   createAnnouncement,
   createUser,
-  createUser,
   getAnnouncements,
   getUsers,
-  login,
-  refresh,
-} from '../gen/telepact/genTypes.js';
   login,
   refresh,
 } from '../gen/telepact/genTypes.js';
@@ -17,7 +13,6 @@ import {
   userRepository,
 } from '../infrastructure/repository.js';
 import { AnnouncementHandler } from './AnnouncementHandler.js';
-import { AuthenticationHandler } from './AuthenticationHandler.js';
 import { AuthenticationHandler } from './AuthenticationHandler.js';
 import { UserHandler } from './UserHandler.js';
 

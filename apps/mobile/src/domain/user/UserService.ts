@@ -3,11 +3,6 @@ import {
   getUsers,
   TelepactClient,
 } from '../../infrastructure/TelepactService';
-import {
-  createUser,
-  getUsers,
-  TelepactClient,
-} from '../../infrastructure/TelepactService';
 import { User } from './User';
 
 export class UserService {
@@ -18,7 +13,6 @@ export class UserService {
 
     try {
       console.log('service entryasdfadsf');
-      const resp = await this.client.getUsers({}, getUsers.Input.from({}));
       const resp = await this.client.getUsers({}, getUsers.Input.from({}));
 
       console.log('service afaster');

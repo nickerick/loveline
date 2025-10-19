@@ -6,7 +6,6 @@ import {
   createAnnouncement,
   getAnnouncements,
 } from '../gen/telepact/genTypes.js';
-} from '../gen/telepact/genTypes.js';
 
 export class AnnouncementHandler {
   constructor(private readonly announcementRepo: AnnouncementRepository) {}
@@ -19,7 +18,6 @@ export class AnnouncementHandler {
 
     const responseAnnouncements: Announcement[] = [];
     allAnnouncements?.forEach((announcement) => {
-      const mappedAnnouncement = Announcement.from({
       const mappedAnnouncement = Announcement.from({
         id: announcement.id,
         message: announcement.message,
@@ -47,7 +45,6 @@ export class AnnouncementHandler {
     const newAnnouncement =
       await this.announcementRepo.create(newDbAnnouncement);
 
-    const responseAnnouncement = Announcement.from({
     const responseAnnouncement = Announcement.from({
       id: newAnnouncement!.id,
       message: newAnnouncement!.message,

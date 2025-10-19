@@ -3,11 +3,8 @@ import {
   TypedClient,
   createAnnouncement,
   createUser,
-  createUser,
   getAnnouncements,
   getUsers,
-  login,
-} from '../gen/telepact/genTypes';
   login,
 } from '../gen/telepact/genTypes';
 
