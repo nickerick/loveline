@@ -17,9 +17,9 @@ export class UserService {
 
       console.log('service afaster');
 
-      if (resp[1].getTaggedValue().tag === 'Ok_') {
+      if (resp.body.getTaggedValue().tag === 'Ok_') {
         const users = (
-          resp[1].getTaggedValue().value as getUsers.Output.Ok_
+          resp.body.getTaggedValue().value as getUsers.Output.Ok_
         ).users();
 
         console.log('service exit');
@@ -59,7 +59,7 @@ export class UserService {
       }),
     );
 
-    const output = resp[1].getTaggedValue();
+    const output = resp.body.getTaggedValue();
     if (output.tag !== 'Ok_') {
       throw Error('Failed to create user');
     }
