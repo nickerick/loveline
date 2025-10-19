@@ -28,6 +28,8 @@ export class UserHandler {
     const responseUsers: User[] = [];
     allUsers.forEach((user) => {
       const mappedUser = User.from({
+    allUsers.forEach((user) => {
+      const mappedUser = User.from({
         id: user.id,
         username: user.username,
         email: user.email,
@@ -93,6 +95,22 @@ export class UserHandler {
     };
   }
 
+  async validateUserInput(input: createUser.Input) {
+    const username = validateUsername(input.username());
+    if (!username.valid) return { field: 'username', reason: username.reason };
+
+    const usernameExists = await this.userRepo.findByUsername(input.username());
+    if (usernameExists)
+      return { field: 'username', reason: 'This username is already taken' };
+
+    const email = validateEmail(input.email());
+    if (!email.valid) return { field: 'email', reason: email.reason };
+
+    const password = validatePassword(input.password());
+    if (!password.valid) return { field: 'password', reason: password.reason };
+
+    return null;
+  }
   async validateUserInput(input: createUser.Input) {
     const username = validateUsername(input.username());
     if (!username.valid) return { field: 'username', reason: username.reason };
