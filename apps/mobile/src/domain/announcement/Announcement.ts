@@ -1,4 +1,4 @@
-import { Announcement as Announcement_ } from '@/src/gen/genTypes';
+import { Announcement as Announcement_ } from '@/src/gen/telepact/genTypes';
 
 export class Announcement {
   constructor(

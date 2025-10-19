@@ -1,4 +1,4 @@
-import { User as User_ } from '@/src/gen/genTypes';
+import { User as User_ } from '@/src/gen/telepact/genTypes';
 
 export class User {
   constructor(

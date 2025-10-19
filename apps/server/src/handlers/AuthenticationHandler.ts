@@ -6,6 +6,7 @@ import {
   verifyPassword,
   verifyRefreshToken,
 } from '../auth/authentication.js';
+import type { TypedMessage } from 'telepact';
 
 export class AuthenticationHandler {
   constructor(private readonly userRepo: UserRepository) {}
@@ -13,34 +14,40 @@ export class AuthenticationHandler {
   async login(
     headers: Record<string, any>,
     input: login.Input,
-  ): Promise<[Record<string, any>, login.Output]> {
+  ): Promise<TypedMessage<login.Output>> {
     const user = await this.userRepo.findByUsername(input.username());
-    if (!user) return [{}, login.Output.from_InvalidCredentials({})];
+    if (!user)
+      return { headers: {}, body: login.Output.from_InvalidCredentials({}) };
 
     const isMatch = await verifyPassword(input.password(), user.password_hash);
-    if (!isMatch) return [{}, login.Output.from_InvalidCredentials({})];
+    if (!isMatch)
+      return { headers: {}, body: login.Output.from_InvalidCredentials({}) };
 
     const accessToken = generateToken(user.id);
     const refreshToken = generateRefreshToken(user.id);
 
-    return [
-      {},
-      login.Output.from_Ok_({
+    return {
+      headers: {},
+      body: login.Output.from_Ok_({
         accessToken: accessToken,
         refreshToken: refreshToken,
       }),
-    ];
+    };
   }
 
   async refresh(
     headers: Record<string, any>,
     input: refresh.Input,
-  ): Promise<[Record<string, any>, refresh.Output]> {
+  ): Promise<TypedMessage<refresh.Output>> {
     const user = verifyRefreshToken(input.refreshToken());
-    if (!user) return [{}, refresh.Output.from_InvalidCredentials({})];
+    if (!user)
+      return { headers: {}, body: refresh.Output.from_InvalidCredentials({}) };
 
     const accessToken = generateToken(user);
 
-    return [{}, refresh.Output.from_Ok_({ accessToken: accessToken })];
+    return {
+      headers: {},
+      body: refresh.Output.from_Ok_({ accessToken: accessToken }),
+    };
   }
 }

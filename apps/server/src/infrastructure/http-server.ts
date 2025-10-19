@@ -14,11 +14,13 @@ export async function startHttpServer() {
 
       req.on('end', async () => {
         const rawBody = Buffer.concat(chunks);
-        // console.log('Received raw bytes:', rawBody);
 
         let responseBytes: Uint8Array;
         try {
-          responseBytes = await telepactServer.process(new Uint8Array(rawBody));
+          const response = await telepactServer.process(
+            new Uint8Array(rawBody),
+          );
+          responseBytes = response.bytes;
         } catch (err) {
           console.error('Error processing request:', err);
           res.statusCode = 500;

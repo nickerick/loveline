@@ -11,6 +11,7 @@ import {
   validatePassword,
   validateUsername,
 } from '../utils/validators.js';
+import type { TypedMessage } from 'telepact';
 
 export class UserHandler {
   constructor(private readonly userRepo: UserRepository) {}
@@ -18,7 +19,7 @@ export class UserHandler {
   async getUsers(
     headers: Record<string, any>,
     input: getUsers.Input,
-  ): Promise<[Record<string, any>, getUsers.Output]> {
+  ): Promise<TypedMessage<getUsers.Output>> {
     const user = verifyToken(headers);
     if (!user) return unauthenticatedOutput(getUsers.Output);
 
@@ -36,23 +37,35 @@ export class UserHandler {
       responseUsers.push(mappedUser);
     });
 
-    return [{}, getUsers.Output.from_Ok_({ users: responseUsers })];
+    return {
+      headers: {},
+      body: getUsers.Output.from_Ok_({ users: responseUsers }),
+    };
   }
 
   async createUser(
     headers: Record<string, any>,
     input: createUser.Input,
-  ): Promise<[Record<string, any>, createUser.Output]> {
+  ): Promise<TypedMessage<createUser.Output>> {
     const validationError = await this.validateUserInput(input);
     if (validationError) {
       const { field, reason } = validationError;
       switch (field) {
         case 'username':
-          return [{}, createUser.Output.from_InvalidUsername({ reason })];
+          return {
+            headers: {},
+            body: createUser.Output.from_InvalidUsername({ reason }),
+          };
         case 'email':
-          return [{}, createUser.Output.from_InvalidEmail({ reason })];
+          return {
+            headers: {},
+            body: createUser.Output.from_InvalidEmail({ reason }),
+          };
         case 'password':
-          return [{}, createUser.Output.from_InvalidPassword({ reason })];
+          return {
+            headers: {},
+            body: createUser.Output.from_InvalidPassword({ reason }),
+          };
       }
     }
 
@@ -74,7 +87,10 @@ export class UserHandler {
       lastName: newUser.last_name,
     });
 
-    return [{}, createUser.Output.from_Ok_({ user: responseUser })];
+    return {
+      headers: {},
+      body: createUser.Output.from_Ok_({ user: responseUser }),
+    };
   }
 
   async validateUserInput(input: createUser.Input) {

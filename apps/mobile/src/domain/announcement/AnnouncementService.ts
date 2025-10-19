@@ -15,9 +15,9 @@ export class AnnouncementService {
         getAnnouncements.Input.from({}),
       );
 
-      if (resp[1].getTaggedValue().tag === 'Ok_') {
+      if (resp.body.getTaggedValue().tag === 'Ok_') {
         const announcements = (
-          resp[1].getTaggedValue().value as getAnnouncements.Output.Ok_
+          resp.body.getTaggedValue().value as getAnnouncements.Output.Ok_
         ).announcements();
 
         return announcements.map(Announcement.fromTelepact);
@@ -46,7 +46,7 @@ export class AnnouncementService {
         }),
       );
 
-      if (resp[1].getTaggedValue().tag !== 'Ok_') {
+      if (resp.body.getTaggedValue().tag !== 'Ok_') {
         throw Error('Failed to create announcement');
       }
     } catch (err) {

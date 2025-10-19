@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       {},
       serverLogin.Input.from({ username: username, password: password }),
     );
-    const output = response[1].getTaggedValue();
+    const output = response.body.getTaggedValue();
 
     switch (output.tag) {
       case 'Ok_':
@@ -124,7 +124,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       {},
       refresh.Input.from({ refreshToken: refreshToken }),
     );
-    const output = response[1].getTaggedValue();
+    const output = response.body.getTaggedValue();
 
     switch (output.tag) {
       case 'Ok_':
